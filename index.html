@@ -1,0 +1,2781 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Dashboard PMB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1e3a5f;
+      --primary-light: #ebf2ff;
+      --primary-dark: #122540;
+      --accent: #1a73e8;
+      --success: #34a853;
+      --warning: #fbbc04;
+      --danger: #ea4335;
+      --purple: #9334e6;
+      --bg: #f1f4f8;
+      --surface: #fff;
+      --border: #cbd5e1;
+      --border-strong: #94a3b8;
+      --text: #0d1b2a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 10px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --radius-lg: 14px;
+      --gap: 20px;
+      --section-gap: 28px;
+      --block-gap: 20px;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--primary);
+      border-bottom: 3px solid var(--primary-dark);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .header-title {
+      min-width: 0;
+    }
+
+    .header-title h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-logo {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .last-upload {
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.12);
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      white-space: nowrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 8px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: poInter;
+      border: none;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: #f0f6ff;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-danger {
+      background: #fff;
+      color: var(--primary);
+    }
+
+    .btn-danger:hover {
+      background: #f0f6ff;
+      box-shadow: var(--shadow-md);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    /* MAIN */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 24px;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 0.01em;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 20px;
+      background: #1e3a5f;
+      border-radius: 3px;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--gap);
+      margin-bottom: var(--section-gap);
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .kpi-card.blue::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-card.green::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-card.orange::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-card.red::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-card.purple::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-card.cyan::before {
+      background: #1e3a5f;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      word-break: break-all;
+      max-width: 100%;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-top: 5px;
+      letter-spacing: 0.01em;
+      word-break: break-word;
+      text-align: center;
+    }
+
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 3px;
+      word-break: break-word;
+      text-align: center;
+    }
+
+    /* CARDS / GRID */
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--gap);
+    }
+
+    .grid-12 {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--gap);
+    }
+
+    .grid-21 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--gap);
+    }
+
+    /* Prevent grid children from overflowing their column track */
+    .grid-2>*,
+    .grid-3>*,
+    .grid-12>*,
+    .grid-21>* {
+      min-width: 0;
+    }
+
+    /* Wrapper to provide consistent spacing between each section block */
+    .section-block {
+      margin-bottom: var(--section-gap);
+    }
+
+    /* CHARTS */
+    .chart-wrap {
+      position: relative;
+      height: 260px;
+    }
+
+    .chart-wrap.tall {
+      height: 320px;
+    }
+
+    .chart-wrap.short {
+      height: 200px;
+    }
+
+    .chart-wrap.xshort {
+      height: 160px;
+    }
+
+    /* TABLES */
+    .tbl-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      min-width: 320px;
+      /* ensures table scrolls inside wrapper, not the whole page */
+    }
+
+    .tbl thead th {
+      background: #1e3a5f;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom: 2px solid var(--primary-dark);
+      white-space: nowrap;
+      cursor: poInter;
+      user-select: none;
+      position: sticky;
+      top: 0;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Sortable column headers */
+    .tbl thead th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .tbl thead th.sortable:hover {
+      background: #16305a;
+    }
+
+    .tbl thead th .sort-icon {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0.35;
+      font-size: 9px;
+      vertical-align: middle;
+    }
+
+    .tbl thead th.sort-asc .sort-icon,
+    .tbl thead th.sort-desc .sort-icon {
+      opacity: 1;
+    }
+
+    /* Ensure right-aligned headers match their cell content */
+    .tbl thead th.text-right {
+      text-align: right;
+    }
+
+    .tbl thead th.text-center {
+      text-align: center;
+    }
+
+    .tbl tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+
+    .tbl tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .tbl tbody tr:hover {
+      background: #ebf2ff;
+    }
+
+    .tbl tbody td {
+      padding: 9px 12px;
+      color: var(--text);
+    }
+
+    #tblProdiKonversi td:first-child,
+    #tblPasanganProdi td:first-child,
+    #tblPasanganProdi td:nth-child(2),
+    #tblProdiPendaftar td:first-child,
+    #tblRincianJalur td:first-child,
+    #tblUndurDiri td:first-child {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 0;
+      width: 45%;
+    }
+
+    #tblPasanganProdi td:first-child,
+    #tblPasanganProdi td:nth-child(2) {
+      width: 38%;
+    }
+
+    #tblSekolahTop10 td:first-child {
+      max-width: 0;
+      width: 55%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tbl tfoot td {
+      padding: 10px 12px;
+      font-weight: 700;
+      font-size: 11px;
+      background: #f1f4f8;
+      border-top: 2px solid var(--border-strong);
+      color: var(--text);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: left;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      width: 48px;
+      justify-content: left;
+    }
+
+    .badge-blue {
+      background: #1e3a5f;
+      color: #fff;
+    }
+
+    .badge-green {
+      background: #0d7a4e;
+      color: #fff;
+    }
+
+    .badge-red {
+      background: #c0182a;
+      color: #fff;
+    }
+
+    .badge-orange {
+      background: #f17925;
+      color: #fff;
+    }
+
+    .badge-purple {
+      background: #5b21b6;
+      color: #fff;
+    }
+
+    .badge-gray {
+      background: #e2e8f0;
+      color: var(--text-muted);
+      border: 1px solid var(--border-strong);
+    }
+
+    /* HIGHLIGHT CARD */
+    .highlight-warn {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .highlight-success {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    /* REKAP TABLE */
+    #rekapTable {
+      font-size: 11px;
+      table-layout: fixed;
+      width: 100%;
+      min-width: 700px;
+    }
+
+    #rekapTable colgroup {
+      display: table-column-group;
+    }
+
+    #rekapTable thead th {
+      font-size: 11px;
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: bottom;
+      line-height: 1.3;
+      word-break: break-word;
+      white-space: normal;
+      background: #1e3a5f;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    /* Sticky first column — header cell */
+    #rekapTable thead th:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      /* above other sticky header cells */
+      background: #1e3a5f;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Sticky first column — body cells */
+    #rekapTable tbody td {
+      padding: 2px 12px;
+      vertical-align: middle;
+    }
+
+    #rekapTable tbody td:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #fff;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+    }
+
+    #rekapTable tbody tr:hover td:first-child {
+      background: #ebf2ff;
+    }
+
+    #rekapTable tbody td:not(:first-child) {
+      text-align: left;
+    }
+
+    /* Sticky first column - footer cells */
+    #rekapTable tfoot td {
+      padding: 4px 12px;
+      font-size: 11px;
+      text-align: left;
+    }
+
+    #rekapTable tfoot td:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #f1f4f8;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+    }
+
+    /* LOADING */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 16px;
+      }
+
+      .header-inner {
+        padding: 10px 0;
+        gap: 10px;
+      }
+
+      .header-logo {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+      }
+
+      .header-title h1 {
+        font-size: 13px;
+      }
+
+      .header-title p {
+        font-size: 11px;
+      }
+
+      .header-actions {
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      .last-upload {
+        font-size: 10px;
+        padding: 4px 8px;
+      }
+
+      .main {
+        padding: 16px 12px;
+      }
+
+      /* All multi-col grids collapse to single column */
+      .grid-2,
+      .grid-3,
+      .grid-12,
+      .grid-21 {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .kpi-card {
+        padding: 14px;
+      }
+
+      .kpi-value {
+        font-size: 22px;
+      }
+
+      .kpi-label {
+        font-size: 11px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .card-title {
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .section-block {
+        margin-bottom: 20px;
+      }
+
+      .seksi-divider {
+        margin: 28px 0 18px;
+      }
+
+      .seksi-badge {
+        font-size: 12px;
+        padding: 5px 12px;
+      }
+
+      .chart-wrap {
+        height: 200px;
+      }
+
+      .chart-wrap.tall {
+        height: 240px;
+      }
+
+      .chart-wrap.short {
+        height: 160px;
+      }
+
+      .chart-wrap.xshort {
+        height: 140px;
+      }
+
+      /* Tables: let wrapper scroll horizontally */
+      .tbl-wrap {
+        border-radius: 0;
+      }
+
+      #rekapTable {
+        table-layout: auto;
+        min-width: 520px;
+      }
+
+      #rekapTable thead th {
+        font-size: 10px;
+        padding: 8px 6px;
+        white-space: nowrap;
+      }
+
+      #rekapTable tbody td {
+        padding: 6px 6px;
+        font-size: 11px;
+      }
+
+      #rekapTable tfoot td {
+        font-size: 10px;
+        padding: 6px 6px;
+      }
+
+      /* Keep sticky column working on mobile */
+      #rekapTable thead th:first-child,
+      #rekapTable tbody td:first-child,
+      #rekapTable tfoot td:first-child {
+        position: sticky;
+        left: 0;
+        min-width: 100px;
+        max-width: 120px;
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 0 12px;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .last-upload {
+        display: none;
+      }
+
+      .main {
+        padding: 10px;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .kpi-card {
+        padding: 12px;
+      }
+
+      .kpi-value {
+        font-size: 20px;
+      }
+
+      .kpi-label {
+        font-size: 10px;
+      }
+
+      .kpi-sub {
+        font-size: 10px;
+      }
+
+      .card {
+        padding: 12px;
+      }
+
+      .section-block {
+        margin-bottom: 16px;
+      }
+
+      .chart-wrap {
+        height: 180px;
+      }
+
+      .chart-wrap.tall {
+        height: 210px;
+      }
+
+      .chart-wrap.short {
+        height: 150px;
+      }
+    }
+
+    /* SINGLE PAGE DIVIDERS */
+    .seksi-anchor {
+      scroll-margin-top: 80px;
+    }
+
+    .seksi-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 40px 0 24px;
+      position: relative;
+    }
+
+    .seksi-divider::before {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--border-strong), transparent);
+    }
+
+    .seksi-divider::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to left, var(--border-strong), transparent);
+    }
+
+    .seksi-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      border: none;
+      border-radius: 6px;
+      padding: 7px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+      letter-spacing: 0.02em;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-num {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+
+    .color-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+
+    .sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* TOUCH FRIENDLY */
+    @media (hover: none) and (pointer: coarse) {
+      .btn {
+        min-height: 44px;
+        padding: 10px 14px;
+      }
+    }
+
+    /* Safety net: no element should cause horizontal scroll */
+    .chart-wrap canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="header-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect width="7" height="9" x="3" y="3" rx="1" /> <rect width="7" height="5" x="14" y="3" rx="1" /> <rect width="7" height="9" x="14" y="12" rx="1" /> <rect width="7" height="5" x="3" y="16" rx="1" /> </svg>
+        </div>
+        <div class="header-title">
+          <h1>Dashboard Penerimaan Mahasiswa Baru</h1>
+          <p>Universitas Muhammadiyah Pontianak &mdash; T.A. 2026/2027</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="last-upload" id="lastUploadLabel">Belum ada data</span>
+        <input type="file" id="fileInput" accept=".xlsx,.xls" />
+        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M12 3v12" /> <path d="m17 8-5-5-5 5" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> </svg>
+        </button>
+        <button class="btn btn-danger" onclick="resetData()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21" /> <path d="m5.082 11.09 8.828 8.828" /> </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <!-- LOADING -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none">
+      <div class="spinner"></div>
+      <p style="font-size: 14px; font-weight: 700; color: var(--text-muted)">Memproses data...</p>
+    </div>
+
+    <!-- PAGE: INFORMASI -->
+    <div id="seksi-ringkasan" class="seksi-anchor"></div>
+    <div class="seksi-divider">
+      <div class="seksi-badge">RINGKASAN INFORMASI</div>
+    </div>
+
+    <!-- KPI RINGKASAN -->
+    <div class="section-block">
+      <div class="section-title">Ringkasan Umum</div>
+      <div class="kpi-grid">
+        <div class="kpi-card blue">
+          <div class="kpi-value" id="kpiTotalDaftar">0</div>
+          <div class="kpi-label">Pendaftar</div>
+          <div class="kpi-sub" id="kpiDaftarSub"></div>
+        </div>
+        <div class="kpi-card cyan">
+          <div class="kpi-value" id="kpiTotalTes">0</div>
+          <div class="kpi-label">Tes Online</div>
+          <div class="kpi-sub">Sudah melakukan Tes</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-value" id="kpiTotalDiterima">0</div>
+          <div class="kpi-label">Diterima</div>
+          <div class="kpi-sub">Lulus Tes &amp; Pemberkasan</div>
+        </div>
+        <div class="kpi-card orange">
+          <div class="kpi-value" id="kpiNimTerbentuk">0</div>
+          <div class="kpi-label">NIM Aktif</div>
+          <div class="kpi-sub">Buat NIM−Undur Diri</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-value" id="kpiUndurDiri">0</div>
+          <div class="kpi-label">Undur Diri</div>
+          <div class="kpi-sub">Bayar tetapi Undur Diri</div>
+        </div>
+        <div class="kpi-card purple">
+          <div class="kpi-value" id="kpiKonversi">0%</div>
+          <div class="kpi-label">Rerata Konversi</div>
+          <div class="kpi-sub">NIM Aktif:Pendaftar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI jalur -->
+    <div class="section-block">
+      <div class="section-title">Pendaftar per Jalur Masuk</div>
+      <div class="kpi-grid" id="kpiJalurGrid"></div>
+    </div>
+
+    <div id="seksi-analisis" class="seksi-anchor"></div>
+    <div class="seksi-divider">
+      <div class="seksi-badge">ANALISIS DATA</div>
+    </div>
+
+    <!-- Prodi pendaftar tertinggi -->
+    <div class="section-block">
+      <div class="section-title">Program Studi dengan Pendaftar Tertinggi</div>
+      <div class="grid-21">
+        <div class="card">
+          <div class="card-title">Pendaftar per Program Studi (Pilihan 1)</div>
+          <div class="chart-wrap tall"><canvas id="chartProdiPendaftar"></canvas></div>
+        </div>
+        <div class="card" style="overflow: hidden">
+          <div class="card-title">Tabel Pendaftar per Program Studi</div>
+          <div class="tbl-wrap" style="max-height: 340px; overflow-y: auto">
+            <table class="tbl" id="tblProdiPendaftar">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblProdiPendaftar(0)">Program Studi</th>
+                  <th class="sortable text-left" onclick="sortTblProdiPendaftar(1)">Pendaftar</th>
+                  <th class="sortable text-left" onclick="sortTblProdiPendaftar(2)">NIM Aktif</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prodi perlu follow up -->
+    <div class="section-block">
+      <div class="section-title">Program Studi Perlu Follow-Up (Konversi Rendah)</div>
+      <div class="grid-21">
+        <div class="card">
+          <div class="card-title">Konversi Pendaftar → NIM per Program Studi (%)</div>
+          <div class="chart-wrap tall"><canvas id="chartProdiKonversi"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tabel Konversi per Program Studi</div>
+          <div class="tbl-wrap" style="max-height: 340px; overflow-y: auto">
+            <table class="tbl" id="tblProdiKonversi">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblProdiKonversi(0)">Program Studi</th>
+                  <th class="sortable text-left" onclick="sortTblProdiKonversi(1)">Daftar</th>
+                  <th class="sortable text-left" onclick="sortTblProdiKonversi(2)">NIM Aktif</th>
+                  <th class="sortable text-left" onclick="sortTblProdiKonversi(3)">Konversi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Undur diri -->
+    <div class="section-block">
+      <div class="section-title">Mahasiswa Undur Diri</div>
+      <div class="grid-21">
+        <div class="card">
+          <div class="card-title">Undur Diri per Program Studi</div>
+          <div class="chart-wrap"><canvas id="chartUndurDiri"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tabel Undur Diri</div>
+          <div class="tbl-wrap">
+            <table class="tbl" id="tblUndurDiri">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblUndurDiri(0)">Program Studi</th>
+                  <th class="sortable text-left" onclick="sortTblUndurDiri(1)">Undur Diri</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISTRIBUSI PENDAFTAR -->
+    <div class="section-block">
+      <div class="section-title">Distribusi Pendaftar</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Jalur Masuk</div>
+          <div class="chart-wrap"><canvas id="chartJalur"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Gelombang Pendaftaran</div>
+          <div class="chart-wrap"><canvas id="chartGelombang"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Jenis Kelamin</div>
+          <div class="chart-wrap"><canvas id="chartJK"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JALUR MASUK -->
+    <div class="section-block">
+      <div class="section-title">Jalur Masuk</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Tingkat Konversi per Jalur (%)</div>
+          <div class="chart-wrap"><canvas id="chartJalurKonversi"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pendaftar vs NIM Aktif per Jalur</div>
+          <div class="chart-wrap"><canvas id="chartJalurDaftarDiterima"></canvas></div>
+        </div>
+        <div class="card" style="overflow: hidden">
+          <div class="card-title">Rincian per Jalur</div>
+          <div class="tbl-wrap">
+            <table class="tbl" id="tblRincianJalur">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblRincianJalur(0)">Jalur</th>
+                  <th class="sortable text-left" onclick="sortTblRincianJalur(1)">Pendaftar</th>
+                  <th class="sortable text-left" onclick="sortTblRincianJalur(2)">NIM Aktif</th>
+                  <th class="sortable text-left" onclick="sortTblRincianJalur(3)">Konversi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- PROGRAM STUDI -->
+    <div class="section-block">
+      <div class="section-title">Pemilihan Program Studi</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Pendaftar Pilihan 1 vs NIM Aktif per Program Studi</div>
+          <div class="chart-wrap tall"><canvas id="chartProdiDaftarDiterima"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Konversi Pendaftar → NIM Aktif per Program Studi (%)</div>
+          <div class="chart-wrap tall"><canvas id="chartProdiKonversiDiterima"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POLA PILIHAN PRODI -->
+    <div class="section-block">
+      <div class="section-title">Pola Pilihan Program Studi</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Kesesuaian Penempatan: Diterima di Pilihan 1 / Pilihan 2</div>
+          <div class="chart-wrap"><canvas id="chartPenempatanPilihan"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Distribusi Pilihan 1 Seluruh Pendaftar</div>
+          <div class="chart-wrap"><canvas id="chartDistribusiPilihan1"></canvas></div>
+        </div>
+        <div class="card" style="overflow: hidden">
+          <div class="card-title">10 Pasangan Program Studi Pilihan 1 &amp; 2 Terbanyak</div>
+          <div class="tbl-wrap" style="max-height: 260px; overflow-y: auto">
+            <table class="tbl" id="tblPasanganProdi">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblPasanganProdi(0)">Pilihan 1</th>
+                  <th class="sortable" onclick="sortTblPasanganProdi(1)">Pilihan 2</th>
+                  <th class="sortable text-left" onclick="sortTblPasanganProdi(2)">Jumlah</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENDER PER PRODI -->
+    <div class="section-block">
+      <div class="section-title">Distribusi Gender per Program Studi</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Rasio L/P per Program Studi — Pendaftar</div>
+          <div class="chart-wrap tall"><canvas id="chartGenderProdiDaftar"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Rasio L/P per Program Studi — NIM Aktif</div>
+          <div class="chart-wrap tall"><canvas id="chartGenderProdiDiterima"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASAL SEKOLAH -->
+    <div class="section-block">
+      <div class="section-title">Tipe Asal Sekolah</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Volume Pendaftar per Tipe Sekolah</div>
+          <div class="chart-wrap"><canvas id="chartSekolahTipe"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Konversi per Tipe (%)</div>
+          <div class="chart-wrap"><canvas id="chartSekolahKonversiDetail"></canvas></div>
+        </div>
+        <div class="card" style="overflow: hidden">
+          <div class="card-title">Tabel Konversi per Tipe Sekolah</div>
+          <div class="tbl-wrap" style="max-height: 260px; overflow-y: auto">
+            <table class="tbl" id="tblSekolahKonversi">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblSekolahKonversi(0)">Tipe Sekolah</th>
+                  <th class="sortable text-left" onclick="sortTblSekolahKonversi(1)">Pendaftar</th>
+                  <th class="sortable text-left" onclick="sortTblSekolahKonversi(2)">NIM Aktif</th>
+                  <th class="sortable text-left" onclick="sortTblSekolahKonversi(3)">Konversi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAMA ASAL SEKOLAH -->
+    <div class="section-block">
+      <div class="section-title">Nama Asal Sekolah</div>
+      <div class="grid-21">
+        <div class="card">
+          <div class="card-title">10 Sekolah Asal Terbanyak</div>
+          <div class="chart-wrap tall"><canvas id="chartSekolahTop10"></canvas></div>
+        </div>
+        <div class="card" style="overflow: hidden">
+          <div class="card-title">Tabel 10 Sekolah Asal Terbanyak</div>
+          <div class="tbl-wrap" style="max-height: 340px; overflow-y: auto">
+            <table class="tbl" id="tblSekolahTop10">
+              <thead>
+                <tr>
+                  <th class="sortable" onclick="sortTblSekolahTop10(0)">Sekolah</th>
+                  <th class="sortable text-left" onclick="sortTblSekolahTop10(1)">Pendaftar</th>
+                  <th class="sortable text-left" onclick="sortTblSekolahTop10(2)">NIM Aktif</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP SEKOLAH -->
+    <div class="section-block">
+      <div class="section-title">Top Sekolah: Pendaftar &amp; NIM Aktif</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">10 Sekolah dengan Pendaftar Terbanyak &amp; Jumlah NIM Aktif</div>
+          <div class="chart-wrap tall"><canvas id="chartTopSekolahDaftar"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">10 Sekolah dengan Konversi Pendaftar→NIM Aktif Tertinggi</div>
+          <div class="chart-wrap tall"><canvas id="chartTopSekolahKonversi"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASAL DAERAH -->
+    <div class="section-block">
+      <div class="section-title">Asal Daerah</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Pendaftar per Kabupaten/Kota di Kalimantan Barat</div>
+          <div class="chart-wrap tall"><canvas id="chartKotaKalbar"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pendaftar Dalam Kalbar vs Luar Kalbar</div>
+          <div class="chart-wrap tall"><canvas id="chartKalbarLuar"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TREN PENDAFTARAN -->
+    <div class="section-block">
+      <div class="section-title">Tren Pendaftaran</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Jumlah Pendaftar per Bulan</div>
+          <div class="chart-wrap tall"><canvas id="chartTrenBulan"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pendaftaran per Hari dalam Seminggu</div>
+          <div class="chart-wrap tall"><canvas id="chartTrenHari"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENDAFTAR PER BULAN PER JALUR -->
+    <div class="section-block">
+      <div class="section-title">Pendaftar per Bulan per Jalur</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Tren Bulanan Berdasarkan Jalur Masuk</div>
+          <div class="chart-wrap tall"><canvas id="chartBulanJalur"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pendaftar Kumulatif per Bulan</div>
+          <div class="chart-wrap tall"><canvas id="chartKumulatif"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WAKTU TUNGGU TES -->
+    <div class="section-block">
+      <div class="section-title">Distribusi Waktu Tunggu Tes</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Distribusi Hari dari Pendaftaran ke Tes</div>
+          <div class="chart-wrap tall"><canvas id="chartWaktuTunggu"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Rata-rata Waktu Tunggu per Jalur Masuk</div>
+          <div class="chart-wrap tall"><canvas id="chartWaktuTungguJalur"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: REKAPITULASI -->
+    <div id="seksi-rekap" class="seksi-anchor"></div>
+    <div class="seksi-divider">
+      <div class="seksi-badge">REKAPITULASI</div>
+    </div>
+    <div class="section-block">
+      <div class="section-title">Rekapitulasi Data per Program Studi</div>
+      <div class="card" style="padding: 0; overflow: visible">
+        <div class="tbl-wrap" style="max-height: 600px; overflow: auto; border-radius: var(--radius)">
+          <table class="tbl" id="rekapTable">
+            <colgroup>
+              <col style="width: 20%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+              <col style="width: 8%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th onclick="sortRekap(0)" data-col="0">Program Studi</th>
+                <th onclick="sortRekap(1)" data-col="1" class="text-left">Baru</th>
+                <th onclick="sortRekap(2)" data-col="2" class="text-left">Pindahan</th>
+                <th onclick="sortRekap(3)" data-col="3" class="text-left">Pilihan 1</th>
+                <th onclick="sortRekap(4)" data-col="4" class="text-left">Pilihan 2</th>
+                <th onclick="sortRekap(5)" data-col="5" class="text-left">Tes</th>
+                <th onclick="sortRekap(6)" data-col="6" class="text-left">Diterima</th>
+                <th onclick="sortRekap(7)" data-col="7" class="text-left">Buat NIM</th>
+                <th onclick="sortRekap(8)" data-col="8" class="text-left">Undur Diri</th>
+                <th onclick="sortRekap(9)" data-col="9" class="text-left">NIM Aktif</th>
+                <th onclick="sortRekap(10)" data-col="10" class="text-left">Konversi</th>
+              </tr>
+            </thead>
+            <tbody id="rekapBody"></tbody>
+            <tfoot id="rekapFoot"></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /section-block rekap -->
+  </div>
+  <!-- /main -->
+
+  <footer>Andri Restandi &mdash; Keep It Simple, Stupid.</footer>
+
+  <script>
+    // (data tertanam dihapus - gunakan upload Excel)
+
+    // COLOR MAP per Prodi
+    const PRODI_COLORS = {
+      "13104 - Kesehatan Masyarakat":                      "#4285f4",
+      "13201 - Ilmu Kesehatan Masyarakat":                 "#ea4335",
+      "13271 - Kesehatan Masyarakat K. Sintang":           "#fbbc04",
+      "21201 - Teknik Mesin":                              "#34a853",
+      "54243 - Budidaya Perairan":                         "#1a73e8",
+      "55201 - Teknik Informatika":                        "#e8710a",
+      "57201 - Sistem Informasi":                          "#24c1e0",
+      "61114 - Manajemen":                                 "#cddc39",
+      "61201 - Manajemen":                                 "#9334e6",
+      "61205 - Manajemen Bisnis Syariah":                  "#e52592",
+      "61209 - Bisnis Digital":                            "#fa7b17",
+      "61271 - Manajemen K. Sintang":                      "#12b5cb",
+      "73201 - Psikologi":                                 "#0d652d",
+      "74201 - Ilmu Hukum":                                "#b31412",
+      "84204 - Pendidikan Kimia":                          "#185abc",
+      "84205 - Pendidikan Biologi":                        "#7627bb",
+      "86207 - Pendidikan Guru Pendidikan Anak Usia Dini": "#5f6368",
+      "86208 - Pendidikan Agama Islam":                    "#00897b",
+      "86906 - Pendidikan Profesi Guru":                   "#6d4c41",
+    };
+
+    const PRODI_SHORT = {
+      "13104 - Kesehatan Masyarakat":                      "Kesehatan Masyarakat S2",
+      "13201 - Ilmu Kesehatan Masyarakat":                 "Ilmu Kesehatan Masyarakat",
+      "13271 - Kesehatan Masyarakat K. Sintang":           "Kesehatan Masyarakat K. Sintang",
+      "21201 - Teknik Mesin":                              "Teknik Mesin",
+      "54243 - Budidaya Perairan":                         "Budidaya Perairan",
+      "55201 - Teknik Informatika":                        "Teknik Informatika",
+      "57201 - Sistem Informasi":                          "Sistem Informasi",
+      "61114 - Manajemen":                                 "Manajemen S2",
+      "61201 - Manajemen":                                 "Manajemen",
+      "61205 - Manajemen Bisnis Syariah":                  "Manajemen Bisnis Syariah",
+      "61209 - Bisnis Digital":                            "Bisnis Digital",
+      "61271 - Manajemen K. Sintang":                      "Manajemen K. Sintang",
+      "73201 - Psikologi":                                 "Psikologi",
+      "74201 - Ilmu Hukum":                                "Ilmu Hukum",
+      "84204 - Pendidikan Kimia":                          "Pendidikan Kimia",
+      "84205 - Pendidikan Biologi":                        "Pendidikan Biologi",
+      "86207 - Pendidikan Guru Pendidikan Anak Usia Dini": "Pendidikan Guru PAUD",
+      "86208 - Pendidikan Agama Islam":                    "Pendidikan Agama Islam",
+      "86906 - Pendidikan Profesi Guru":                   "Pendidikan Profesi Guru",
+    };
+
+    const JALUR_COLORS = {
+      "Peserta Didik Baru / Seleksi Mandiri": "#4285f4",
+      "Peserta Didik Baru / Beasiswa":        "#ea4335",
+      "Peserta Didik Baru / Prestasi":        "#fbbc04",
+      "Pindahan / Seleksi Mandiri":           "#34a853",
+      "PPG PGP / PLPG / Seleksi Mandiri":     "#cddc39",
+      "PPG Non PGP / PLPG / Seleksi Mandiri": "#e52592",
+    };
+    const JALUR_SHORT = {
+      "Peserta Didik Baru / Seleksi Mandiri": "Mandiri",
+      "Peserta Didik Baru / Beasiswa":        "Beasiswa",
+      "Peserta Didik Baru / Prestasi":        "Prestasi",
+      "Pindahan / Seleksi Mandiri":           "Pindahan",
+      "PPG PGP / PLPG / Seleksi Mandiri":     "PPG PGP/PLPG",
+      "PPG Non PGP / PLPG / Seleksi Mandiri": "PPG Non PGP/PLPG",
+    };
+
+    // STATE
+    let DATA = [];
+    let chartInstances = {};
+    let rekapSortCol = -1, rekapSortAsc = true;
+    let rekapData = [];
+
+    // Sort state for sortable tables: { col: index, asc: bool }
+    const _tblSort = {
+      prodiPendaftar: { col: 1, asc: false },
+      prodiKonversi: { col: 3, asc: false },
+      undurDiri: { col: 1, asc: false },
+      rincianJalur: { col: 1, asc: false },
+      pasanganProdi: { col: 2, asc: false },
+      sekolahKonversi: { col: 1, asc: false },
+      sekolahTop10: { col: 1, asc: false },
+    };
+    // Raw data storage for re-sort
+    const _tblData = {
+      prodiPendaftar: [], // [{label, dot, pendaftar, nimAktif}]
+      prodiKonversi: [], // [{label, dot, daftar, nim, pct, badgeCls}]
+      undurDiri: [], // [{label, dot, n}]
+      rincianJalur: [], // [{label, daftar, nimAktif, pct}]
+      pasanganProdi: [], // [{p1, p2, n}]
+      sekolahKonversi: [], // [{tipe, daftar, nimAktif, pct}]
+      sekolahTop10: [], // [{nama, pendaftar, nimAktif}]
+    };
+
+    // UTILS
+    function fmtN(n) {
+      return n.toLocaleString("id-ID");
+    }
+    function fmtPct(n, d) {
+      return (n * 100).toFixed(d ?? 1) + "%";
+    }
+    function counter(arr, key) {
+      const m = {};
+      arr.forEach((r) => {
+        const v = r[key] || "Tidak Diketahui";
+        m[v] = (m[v] || 0) + 1;
+      });
+      return m;
+    }
+    function destroyChart(id) {
+      if (chartInstances[id]) {
+        chartInstances[id].destroy();
+        delete chartInstances[id];
+      }
+    }
+    function mkChart(id, cfg) {
+      destroyChart(id);
+      const ctx = document.getElementById(id);
+      if (!ctx) return;
+      chartInstances[id] = new Chart(ctx, cfg);
+    }
+    function prodiColor(p) {
+      return PRODI_COLORS[p] || "#4285f4";
+    }
+    function prodiShort(p) {
+      return PRODI_SHORT[p] || p.replace(/^\d+ - /, "");
+    }
+    function jalurShort(j) {
+      return JALUR_SHORT[j] || j;
+    }
+    function parseDate(s) {
+      if (!s) return null;
+      s = String(s).trim();
+      // dd-mm-yyyy
+      let m = s.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+      if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+      // dd/mm/yyyy
+      m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+      return null;
+    }
+    const MONTH_ID = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
+    const DAY_ID = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+    // ── SORT HELPER ──
+    function _sortRows(rows, getters, col, asc) {
+      const get = getters[col];
+      return [...rows].sort((a, b) => {
+        const va = get(a), vb = get(b);
+        if (typeof va === 'number' && typeof vb === 'number') return asc ? va - vb : vb - va;
+        return asc ? String(va).localeCompare(String(vb), 'id') : String(vb).localeCompare(String(va), 'id');
+      });
+    }
+
+    function _applySort(tableKey, col) {
+      const s = _tblSort[tableKey];
+      if (s.col === col) s.asc = !s.asc;
+      else { s.col = col; s.asc = (col === 0); }
+    }
+
+    function _markSortHeaders(tableId, activeCol, asc) {
+      const ths = document.querySelectorAll(`#${tableId} thead th.sortable`);
+      ths.forEach((th, i) => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        const icon = th.querySelector('.sort-icon');
+        if (icon) icon.textContent = '⇅';
+        if (i === activeCol) {
+          th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+          if (icon) icon.textContent = asc ? '▲' : '▼';
+        }
+      });
+    }
+
+    // ── RENDER FUNCTIONS PER TABLE ──
+    function renderTblProdiPendaftar() {
+      const s = _tblSort.prodiPendaftar;
+      const getters = [r => r.label, r => r.pendaftar, r => r.nimAktif];
+      const rows = _sortRows(_tblData.prodiPendaftar, getters, s.col, s.asc);
+      document.querySelector('#tblProdiPendaftar tbody').innerHTML = rows.map(r =>
+        `<tr>
+           <td title="${r.label}"><span class="color-dot" style="background:${r.dot}"></span>${prodiShort(r.label)}</td>
+           <td class="text-left text-num">${fmtN(r.pendaftar)}</td>
+           <td class="text-left text-num">${fmtN(r.nimAktif)}</td>
+         </tr>`
+      ).join('');
+      _markSortHeaders('tblProdiPendaftar', s.col, s.asc);
+    }
+
+    function sortTblProdiPendaftar(col) {
+      _applySort('prodiPendaftar', col);
+      renderTblProdiPendaftar();
+    }
+
+    function renderTblProdiKonversi() {
+      const s = _tblSort.prodiKonversi;
+      const getters = [r => r.label, r => r.daftar, r => r.nim, r => r.pct];
+      const rows = _sortRows(_tblData.prodiKonversi, getters, s.col, s.asc);
+      document.querySelector('#tblProdiKonversi tbody').innerHTML = rows.map(r => {
+        const badgeCls = r.pct < 0.33 ? 'badge-red' : r.pct < 0.66 ? 'badge-orange' : 'badge-green';
+        return `
+            <tr>
+              <td title="${r.label}"><span class="color-dot" style="background:${r.dot}"></span>${prodiShort(r.label)}</td>
+              <td class="text-left text-num">${fmtN(r.daftar)}</td>
+              <td class="text-left text-num">${fmtN(r.nim)}</td>
+              <td class="text-left"><span class="badge ${badgeCls}">${fmtPct(r.pct)}</span></td>
+            </tr>`;
+      }).join('');
+      _markSortHeaders('tblProdiKonversi', s.col, s.asc);
+    }
+
+    function sortTblProdiKonversi(col) {
+      _applySort('prodiKonversi', col);
+      renderTblProdiKonversi();
+    }
+
+    function renderTblUndurDiri() {
+      const s = _tblSort.undurDiri;
+      const getters = [r => r.label, r => r.n];
+      const rows = _sortRows(_tblData.undurDiri, getters, s.col, s.asc);
+      const tbody = document.querySelector('#tblUndurDiri tbody');
+      if (rows.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--text-muted)">Tidak ada data undur diri</td></tr>';
+      } else {
+        tbody.innerHTML = rows.map(r =>
+          `<tr>
+             <td><span class="color-dot" style="background:${r.dot}"></span>${prodiShort(r.label)}</td>
+             <td class="text-left text-num">${fmtN(r.n)}</td>
+           </tr>`
+        ).join('');
+      }
+      _markSortHeaders('tblUndurDiri', s.col, s.asc);
+    }
+
+    function sortTblUndurDiri(col) {
+      _applySort('undurDiri', col);
+      renderTblUndurDiri();
+    }
+
+    function renderTblRincianJalur() {
+      const s = _tblSort.rincianJalur;
+      const getters = [r => r.label, r => r.daftar, r => r.nimAktif, r => parseFloat(r.pct)];
+      const rows = _sortRows(_tblData.rincianJalur, getters, s.col, s.asc);
+      document.querySelector('#tblRincianJalur tbody').innerHTML = rows.map(r =>
+        `<tr>
+           <td>${r.label}</td><td class="text-left text-num">${fmtN(r.daftar)}</td>
+           <td class="text-left text-num">${fmtN(r.nimAktif)}</td>
+           <td class="text-left"><span class="badge badge-blue">${r.pct}</span></td>
+         </tr>`
+      ).join('');
+      _markSortHeaders('tblRincianJalur', s.col, s.asc);
+    }
+
+    function sortTblRincianJalur(col) {
+      _applySort('rincianJalur', col);
+      renderTblRincianJalur();
+    }
+
+    function renderTblPasanganProdi() {
+      const s = _tblSort.pasanganProdi;
+      const getters = [r => r.p1, r => r.p2, r => r.n];
+      const rows = _sortRows(_tblData.pasanganProdi, getters, s.col, s.asc);
+      document.querySelector('#tblPasanganProdi tbody').innerHTML = rows.map(r =>
+        `<tr>
+           <td title="${r.p1}">${prodiShort(r.p1)}</td>
+           <td title="${r.p2}">${prodiShort(r.p2)}</td>
+           <td class="text-left text-num">${fmtN(r.n)}</td>
+         </tr>`
+      ).join('');
+      _markSortHeaders('tblPasanganProdi', s.col, s.asc);
+    }
+
+    function sortTblPasanganProdi(col) {
+      _applySort('pasanganProdi', col);
+      renderTblPasanganProdi();
+    }
+
+    function renderTblSekolahKonversi() {
+      const s = _tblSort.sekolahKonversi;
+      const getters = [r => r.tipe, r => r.daftar, r => r.nimAktif, r => r.pct];
+      const rows = _sortRows(_tblData.sekolahKonversi, getters, s.col, s.asc);
+      document.querySelector('#tblSekolahKonversi tbody').innerHTML = rows.map(r => {
+        const badgeCls = r.pct < 33 ? 'badge-red' : r.pct < 66 ? 'badge-orange' : 'badge-green';
+        return `
+          <tr>
+            <td>${r.tipe}</td>
+            <td class="text-left text-num">${fmtN(r.daftar)}</td>
+            <td class="text-left text-num">${fmtN(r.nimAktif)}</td>
+            <td class="text-left"><span class="badge ${badgeCls}">${r.pct.toFixed(1)}%</span></td>
+          </tr>`;
+      }).join('');
+      _markSortHeaders('tblSekolahKonversi', s.col, s.asc);
+    }
+
+    function sortTblSekolahKonversi(col) {
+      _applySort('sekolahKonversi', col);
+      renderTblSekolahKonversi();
+    }
+
+    function renderTblSekolahTop10() {
+      const s = _tblSort.sekolahTop10;
+      const getters = [r => r.nama, r => r.pendaftar, r => r.nimAktif];
+      const rows = _sortRows(_tblData.sekolahTop10, getters, s.col, s.asc);
+      document.querySelector('#tblSekolahTop10 tbody').innerHTML = rows.map((r, i) =>
+        `<tr>
+            <td title="${r.nama}">
+              <div style="display:flex;align-items:center;gap:8px;overflow:hidden">
+                <span style="width:20px;height:20px;background:#1E3A5F;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;flex-shrink:0">${i + 1}</span>
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${r.nama}</span>
+              </div></td>
+           <td class="text-left text-num"><div class="pct-bar-wrap"><span style="min-width:32px;text-align:right">${fmtN(r.pendaftar)}</span></div></td>
+           <td class="text-left text-num">${fmtN(r.nimAktif)}</td>
+         </tr>`
+      ).join('');
+      _markSortHeaders('tblSekolahTop10', s.col, s.asc);
+    }
+
+    function sortTblSekolahTop10(col) {
+      _applySort('sekolahTop10', col);
+      renderTblSekolahTop10();
+    }
+
+    // INIT
+    function init() {
+      // Cek apakah ada data tersimpan di localStorage
+      const stored = localStorage.getItem("pmb_data");
+      const storedTime = localStorage.getItem("pmb_upload_time");
+      if (stored) {
+        try {
+          showLoading(true);
+          DATA = JSON.parse(stored);
+          if (storedTime) {
+            document.getElementById("lastUploadLabel").textContent = "Diperbarui: " + storedTime;
+          }
+          renderAll();
+          showLoading(false);
+          return;
+        } catch (e) {
+          // Data korup — hapus dan tampilkan halaman kosong
+          localStorage.removeItem("pmb_data");
+          localStorage.removeItem("pmb_upload_time");
+        }
+      }
+    }
+
+    function showLoading(v) {
+      document.getElementById("loadingOverlay").style.display = v ? "flex" : "none";
+    }
+
+    // FILE UPLOAD
+    document.getElementById("fileInput").addEventListener("change", async function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      showLoading(true);
+      try {
+        const ab = await file.arrayBuffer();
+        const wb = XLSX.read(ab);
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(ws, { defval: "" });
+        DATA = json.map((r) => {
+          const o = {};
+          Object.entries(r).forEach(([k, v]) => {
+            if (v instanceof Date) {
+              const dd = String(v.getDate()).padStart(2, "0");
+              const mm = String(v.getMonth() + 1).padStart(2, "0");
+              const yy = v.getFullYear();
+              o[k] = dd + "-" + mm + "-" + yy;
+            } else {
+              o[k] = v === null || v === undefined ? "" : String(v);
+            }
+          });
+          return o;
+        });
+        const now = new Date();
+        const ts = now.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+        localStorage.setItem("pmb_data", JSON.stringify(DATA));
+        localStorage.setItem("pmb_upload_time", ts);
+        document.getElementById("lastUploadLabel").textContent = "Diperbarui: " + ts;
+        renderAll();
+      } catch (err) {
+        alert("Gagal membaca file: " + err.message);
+      }
+      showLoading(false);
+      e.target.value = "";
+    });
+
+    function resetData() {
+      if (!confirm("Hapus semua data? Tindakan ini tidak dapat dibatalkan!")) return;
+      // Hapus dari localStorage lalu reload — karena localStorage sudah kosong,
+      // halaman akan tampil kosong tanpa data
+      localStorage.removeItem("pmb_data");
+      localStorage.removeItem("pmb_upload_time");
+      location.reload();
+    }
+
+    // SCHOOL TYPE
+    function getSekolahTipe(s) {
+      const u = String(s).toUpperCase();
+      if (u.includes("SMKN") || (u.startsWith("SMK") && u.includes("NEGERI"))) return "SMKN";
+      if (u.startsWith("SMK") || u.includes(" SMK")) return "SMKS";
+      if (u.includes("SMAN") || u.includes("SMA N ")) return "SMAN";
+      if (u.includes("SMA")) return "SMAS";
+      if (u.includes("MAN ") || u.match(/^MAN/)) return "MAN";
+      if (u.includes("MAS ") || u.match(/^MAS/) || u.includes(" MA ")) return "MAS";
+      if (u.includes("MTSS") || u.includes("MTS ") || u.match(/^MTS/)) return "MTS";
+      if (u.includes("UNIVERSITAS") || u.includes("POLITEKNIK") || u.includes("SEKOLAH TINGGI") || u.includes("STIKES") || u.includes("AKADEMI") || u.includes("INSTITUT")) return "PT";
+      if (u.includes("PAKET")) return "Paket C";
+      return "Lainnya";
+    }
+
+    // CITY
+    // Pemetaan kabupaten/kota berdasarkan 4 digit pertama NIK
+    // (Diverifikasi dari data aktual — kode BPS yang digunakan dalam NIK pendaftar)
+    const NIK_KAB_MAP = {
+      6101: "Kabupaten Sambas",
+      6102: "Kabupaten Mempawah",
+      6103: "Kabupaten Sanggau",
+      6104: "Kabupaten Ketapang",
+      6105: "Kabupaten Sintang",
+      6106: "Kabupaten Kapuas Hulu",
+      6107: "Kabupaten Bengkayang",
+      6108: "Kabupaten Landak",
+      6109: "Kabupaten Sekadau",
+      6110: "Kabupaten Melawi",
+      6111: "Kabupaten Kayong Utara",
+      6112: "Kabupaten Kubu Raya",
+      6170: "Kota Pontianak",
+      6171: "Kota Pontianak",
+      6172: "Kota Singkawang",
+    };
+
+    function getKota(r) {
+      // r bisa berupa objek record (ambil NIK) atau string NIK langsung
+      const nik = typeof r === "object" ? String(r["N I K"] || "") : String(r);
+      const prefix = nik.replace(/\.0$/, "").trim().slice(0, 4);
+      return NIK_KAB_MAP[prefix] || "Luar Kalbar / Lainnya";
+    }
+    function isKalbar(r) {
+      return getKota(r) !== "Luar Kalbar / Lainnya";
+    }
+
+    // RENDER ALL
+    function renderAll() {
+      renderInfo();
+      renderAnalisis();
+      renderRekap();
+    }
+
+    // INFO PAGE
+    function renderInfo() {
+      const d = DATA;
+      const total = d.length;
+      const baru = d.filter((r) => String(r["Jalur"] || "").includes("Peserta Didik Baru")).length;
+      const pindahan = d.filter((r) => String(r["Jalur"] || "").includes("Pindahan")).length;
+      const tes = d.filter((r) => {
+        const t = String(r["Tanggal Test"] || "").trim();
+        return t && t !== "" && t !== "nan" && t !== "NaT";
+      }).length;
+      const diterima = d.filter((r) => String(r["Terima"]) === "1" || r["Terima"] === 1).length;
+      const nim = d.filter((r) => {
+        const n = String(r["Nomor Mahasiswa"] || "").trim();
+        return n && n !== "" && n !== "nan";
+      }).length;
+      const undurDiri = d.filter((r) => String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1).length;
+      const nimAktif = Math.max(0, nim - undurDiri);
+      const konversi = total > 0 ? nimAktif / total : 0;
+
+      document.getElementById("kpiTotalDaftar").textContent = fmtN(total);
+      document.getElementById("kpiDaftarSub").textContent = "Baru:" + fmtN(baru) + " | Pindahan:" + fmtN(pindahan);
+      document.getElementById("kpiTotalTes").textContent = fmtN(tes);
+      document.getElementById("kpiTotalDiterima").textContent = fmtN(diterima);
+      document.getElementById("kpiNimTerbentuk").textContent = fmtN(nimAktif);
+      document.getElementById("kpiUndurDiri").textContent = fmtN(undurDiri);
+      document.getElementById("kpiKonversi").textContent = fmtPct(konversi);
+
+      // KPI per jalur
+      const jalurMap = {};
+      d.forEach((r) => {
+        const j = r["Jalur"] || "Tidak Diketahui";
+        if (!jalurMap[j]) jalurMap[j] = 0;
+        jalurMap[j]++;
+      });
+      const jalurColors = ["blue", "green", "orange", "purple"];
+      const jalurIcons = [];
+      const jalurGrid = document.getElementById("kpiJalurGrid");
+      jalurGrid.innerHTML = "";
+      const jalurEntries = Object.entries(jalurMap);
+      const jalurCount = jalurEntries.length;
+      jalurGrid.style.gridTemplateColumns = `repeat(${jalurCount}, 1fr)`;
+      jalurEntries.forEach(([j, cnt], i) => {
+        const c = jalurColors[i % jalurColors.length];
+        const ic = jalurIcons[i % jalurIcons.length];
+        jalurGrid.innerHTML += `
+        <div class="kpi-card ${c}">
+        <div class="kpi-value">${fmtN(cnt)}</div>
+        <div class="kpi-label">${jalurShort(j)}</div>
+        <div class="kpi-sub">${fmtPct(cnt / total)}</div>
+      </div>`;
+      });
+
+      // Prodi pendaftar
+      const prodiCount = {};
+      d.forEach((r) => {
+        const p = String(r["Pilihan 1"] || "").trim();
+        if (p) prodiCount[p] = (prodiCount[p] || 0) + 1;
+      });
+      const sorted = Object.entries(prodiCount).sort((a, b) => b[1] - a[1]);
+      mkChart("chartProdiPendaftar", {
+        type: "bar",
+        data: {
+          labels: sorted.map(([p]) => prodiShort(p)),
+          datasets: [{ label: "Pendaftar", data: sorted.map(([, n]) => n), backgroundColor: sorted.map(([p]) => prodiColor(p)), borderColor: sorted.map(([p]) => prodiColor(p)), borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Jumlah Pendaftar", false),
+      });
+      // Hitung NIM Aktif per prodi untuk tblProdiPendaftar
+      const prodiNimAktifMap = {};
+      const _nimCount = {}, _undurCount = {};
+      d.forEach((r) => {
+        const p = String(r["Diterima Pada Jurusan"] || "").trim() || String(r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (hasNim) _nimCount[p] = (_nimCount[p] || 0) + 1;
+        if (isUndur) _undurCount[p] = (_undurCount[p] || 0) + 1;
+      });
+      sorted.forEach(([p]) => {
+        prodiNimAktifMap[p] = Math.max(0, (_nimCount[p] || 0) - (_undurCount[p] || 0));
+      });
+      _tblData.prodiPendaftar = sorted.map(([p, n]) => ({ label: p, dot: prodiColor(p), pendaftar: n, nimAktif: prodiNimAktifMap[p] || 0 }));
+      renderTblProdiPendaftar();
+
+      // Prodi konversi (follow up)
+      const prodiNIM = {};
+      d.forEach((r) => {
+        const p = String(r["Diterima Pada Jurusan"] || "").trim() || String(r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        if (!prodiNIM[p]) prodiNIM[p] = { daftar: 0, nim: 0, undur: 0 };
+        prodiNIM[p].daftar++;
+      });
+      // nim by jurusan
+      d.forEach((r) => {
+        const n = String(r["Nomor Mahasiswa"] || "").trim();
+        if (!n || n === "" || n === "nan") return;
+        const p = String(r["Diterima Pada Jurusan"] || "").trim() || String(r["Pilihan 1"] || "").trim();
+        if (p && prodiNIM[p]) prodiNIM[p].nim++;
+      });
+      // undur diri by jurusan
+      d.forEach((r) => {
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (!isUndur) return;
+        const p = String(r["Diterima Pada Jurusan"] || "").trim() || String(r["Pilihan 1"] || "").trim();
+        if (p && prodiNIM[p]) prodiNIM[p].undur++;
+      });
+      const konvData = Object.entries(prodiNIM)
+        .filter(([p]) => prodiCount[p] > 0)
+        .map(([p, v]) => {
+          const daftar = prodiCount[p] || v.daftar;
+          const nimAktif = Math.max(0, v.nim - v.undur);
+          return { p, daftar, nim: nimAktif, pct: daftar > 0 ? nimAktif / daftar : 0 };
+        })
+        .sort((a, b) => a.pct - b.pct);
+      mkChart("chartProdiKonversi", {
+        type: "bar",
+        data: {
+          labels: konvData.map((x) => prodiShort(x.p)),
+          datasets: [
+            { label: "Konversi (%)", data: konvData.map((x) => +(x.pct * 100).toFixed(1)), backgroundColor: konvData.map((x) => prodiColor(x.p)), borderColor: konvData.map((x) => prodiColor(x.p)), borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Konversi (%)", false, true),
+      });
+      const tbody2 = null; // unused, kept for reference
+      _tblData.prodiKonversi = konvData.map(x => ({ label: x.p, dot: prodiColor(x.p), daftar: x.daftar, nim: x.nim, pct: x.pct }));
+      renderTblProdiKonversi();
+
+      // Undur diri per prodi
+      const undurProdi = {};
+      d.filter((r) => String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1).forEach((r) => {
+        const p = String(r["Pilihan 1"] || "").trim() || "Tidak Diketahui";
+        undurProdi[p] = (undurProdi[p] || 0) + 1;
+      });
+      const undurSorted = Object.entries(undurProdi).sort((a, b) => b[1] - a[1]);
+      mkChart("chartUndurDiri", {
+        type: "bar",
+        data: {
+          labels: undurSorted.map(([p]) => prodiShort(p)),
+          datasets: [{ label: "Undur Diri", data: undurSorted.map(([, n]) => n), backgroundColor: undurSorted.map(([p]) => prodiColor(p)), borderColor: undurSorted.map(([p]) => prodiColor(p)), borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+      _tblData.undurDiri = undurSorted.map(([p, n]) => ({ label: p, dot: prodiColor(p), n }));
+      renderTblUndurDiri();
+    }
+
+    // ANALISIS PAGE
+    function renderAnalisis() {
+      const d = DATA;
+
+      // Distribusi Jalur
+      const jalurC = counter(d, "Jalur");
+      const jalurKeys = [...Object.keys(JALUR_COLORS).filter((k) => jalurC[k]), ...Object.keys(jalurC).filter((k) => !JALUR_COLORS[k])];
+      mkChart("chartJalur", {
+        type: "doughnut",
+        data: {
+          labels: jalurKeys.map(jalurShort),
+          datasets: [{ data: jalurKeys.map((k) => jalurC[k]), backgroundColor: jalurKeys.map((k) => JALUR_COLORS[k] || "#94A3B8"), borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // Gelombang
+      const gelC = counter(d, "Gelombang");
+      mkChart("chartGelombang", {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(gelC),
+          datasets: [{ data: Object.values(gelC), backgroundColor: ["#4285f4", "#ea4335", "#fbbc04"], borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // JK
+      const jkC = counter(d, "JK");
+      mkChart("chartJK", {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(jkC).map((k) => (k === "L" ? "Laki-laki" : k === "P" ? "Perempuan" : k)),
+          datasets: [{ data: Object.values(jkC), backgroundColor: ["#fbbc04", "#34a853"], borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // Tren Bulan
+      const bulanC = {};
+      d.forEach((r) => {
+        const dt = parseDate(r["Tgl Daftar"]);
+        if (!dt) return;
+        const key = dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0");
+        bulanC[key] = (bulanC[key] || 0) + 1;
+      });
+      const bulanKeys = Object.keys(bulanC).sort();
+      mkChart("chartTrenBulan", {
+        type: "bar",
+        data: {
+          labels: bulanKeys.map((k) => {
+            const [y, m] = k.split("-");
+            return MONTH_ID[+m - 1] + " " + y.slice(2);
+          }),
+          datasets: [{ label: "Pendaftar", data: bulanKeys.map((k) => bulanC[k]), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0, fill: true }],
+        },
+        options: defaultBarOpts("Jumlah Pendaftar", false),
+      });
+
+      // Pendaftaran per hari
+      const hariC = [0, 0, 0, 0, 0, 0, 0];
+      d.forEach((r) => {
+        const dt = parseDate(r["Tgl Daftar"]);
+        if (dt) hariC[dt.getDay()]++;
+      });
+      mkChart("chartTrenHari", {
+        type: "bar",
+        data: {
+          labels: DAY_ID,
+          datasets: [
+            {
+              label: "Pendaftar",
+              data: hariC,
+              backgroundColor: ["#4285f4", "#ea4335", "#fbbc04", "#34a853", "#1a73e8", "#e8710a", "#24c1e0"].map((c) => c),
+              borderColor: ["#4285f4", "#ea4335", "#fbbc04", "#34a853", "#1a73e8", "#e8710a", "#24c1e0"],
+              borderWidth: 0,
+              borderRadius: 0,
+            },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+
+      // Prodi: Daftar vs NIM Aktif
+      const prodiDaftar = {},
+        prodiNimAktif = {};
+      const prodiNim = {}, prodiUndur = {};
+      d.forEach((r) => {
+        const p = String(r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        prodiDaftar[p] = (prodiDaftar[p] || 0) + 1;
+      });
+      d.forEach((r) => {
+        const p = String(r["Diterima Pada Jurusan"] || r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (hasNim) prodiNim[p] = (prodiNim[p] || 0) + 1;
+        if (isUndur) prodiUndur[p] = (prodiUndur[p] || 0) + 1;
+      });
+      Object.keys(prodiNim).forEach((p) => {
+        prodiNimAktif[p] = Math.max(0, (prodiNim[p] || 0) - (prodiUndur[p] || 0));
+      });
+      const allProdi = Object.keys(prodiDaftar).sort((a, b) => (prodiDaftar[b] || 0) - (prodiDaftar[a] || 0));
+      mkChart("chartProdiDaftarDiterima", {
+        type: "bar",
+        data: {
+          labels: allProdi.map(prodiShort),
+          datasets: [
+            { label: "Pendaftar", data: allProdi.map((p) => prodiDaftar[p] || 0), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 },
+            { label: "NIM Aktif", data: allProdi.map((p) => prodiNimAktif[p] || 0), backgroundColor: "#ea4335", borderColor: "#ea4335", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+
+      // Konversi NIM Aktif per prodi
+      const konvDit = allProdi
+        .map((p) => {
+          const df = prodiDaftar[p] || 0;
+          const na = prodiNimAktif[p] || 0;
+          return { p, pct: df > 0 ? (na / df) * 100 : 0 };
+        })
+        .sort((a, b) => a.pct - b.pct);
+      mkChart("chartProdiKonversiDiterima", {
+        type: "bar",
+        data: {
+          labels: konvDit.map((x) => prodiShort(x.p)),
+          datasets: [{ label: "Konversi (%)", data: konvDit.map((x) => +x.pct.toFixed(1)), backgroundColor: konvDit.map((x) => prodiColor(x.p)), borderColor: konvDit.map((x) => prodiColor(x.p)), borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Konversi (%)", false, true),
+      });
+
+      // Jalur: konversi
+      const jalurStats = {};
+      d.forEach((r) => {
+        const j = r["Jalur"] || "Tidak Diketahui";
+        if (!jalurStats[j]) jalurStats[j] = { daftar: 0, diterima: 0, nim: 0, undur: 0 };
+        jalurStats[j].daftar++;
+        if (String(r["Terima"]) === "1" || r["Terima"] === 1) jalurStats[j].diterima++;
+        const n = String(r["Nomor Mahasiswa"] || "").trim();
+        if (n && n !== "" && n !== "nan") jalurStats[j].nim++;
+        if (String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1) jalurStats[j].undur++;
+      });
+      // Hitung nimAktif per jalur = nim - undur
+      Object.values(jalurStats).forEach((s) => {
+        s.nimAktif = Math.max(0, s.nim - s.undur);
+      });
+      const jKeys = Object.keys(jalurStats);
+      mkChart("chartJalurKonversi", {
+        type: "bar",
+        data: {
+          labels: jKeys.map(jalurShort),
+          datasets: [
+            {
+              label: "Konversi Daftar→NIM Aktif (%)",
+              data: jKeys.map((j) => (jalurStats[j].daftar > 0 ? +((jalurStats[j].nimAktif / jalurStats[j].daftar) * 100).toFixed(1) : 0)),
+              backgroundColor: jKeys.map((j) => JALUR_COLORS[j] || "#4285f4"),
+              borderColor: jKeys.map((j) => JALUR_COLORS[j] || "#4285f4"),
+              borderWidth: 0,
+              borderRadius: 0,
+            },
+          ],
+        },
+        options: defaultBarOpts("Konversi (%)", false, true),
+      });
+
+      mkChart("chartJalurDaftarDiterima", {
+        type: "bar",
+        data: {
+          labels: jKeys.map(jalurShort),
+          datasets: [
+            { label: "Pendaftar", data: jKeys.map((j) => jalurStats[j].daftar), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 },
+            { label: "NIM Aktif", data: jKeys.map((j) => jalurStats[j].nimAktif), backgroundColor: "#ea4335", borderColor: "#ea4335", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+
+      // Sekolah tipe
+      const tipeC = {},
+        tipeDiterima = {},
+        tipeNimC = {},
+        tipeUndurC = {};
+      d.forEach((r) => {
+        const t = getSekolahTipe(r["Tempat Pendidikan"] || "");
+        tipeC[t] = (tipeC[t] || 0) + 1;
+        if (String(r["Terima"]) === "1" || r["Terima"] === 1) tipeDiterima[t] = (tipeDiterima[t] || 0) + 1;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (hasNim) tipeNimC[t] = (tipeNimC[t] || 0) + 1;
+        if (isUndur) tipeUndurC[t] = (tipeUndurC[t] || 0) + 1;
+      });
+      const tipeKeys = Object.keys(tipeC).sort((a, b) => tipeC[b] - tipeC[a]);
+      const tipeColors = ["#4285f4", "#ea4335", "#fbbc04", "#34a853", "#1a73e8", "#e8710a", "#24c1e0", "#9334e6", "#e52592"];
+      mkChart("chartSekolahTipe", {
+        type: "doughnut",
+        data: {
+          labels: tipeKeys,
+          datasets: [{ data: tipeKeys.map((t) => tipeC[t]), backgroundColor: tipeKeys.map((_, i) => tipeColors[i % tipeColors.length]), borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // Tabel Konversi per Tipe Sekolah
+      // Urutkan tipeKeys berdasarkan konversi NIM Aktif terbesar ke terkecil
+      tipeKeys.sort((a, b) => {
+        const daftarA = tipeC[a] || 0;
+        const nimAktifA = Math.max(0, (tipeNimC[a] || 0) - (tipeUndurC[a] || 0));
+        const pctA = daftarA > 0 ? (nimAktifA / daftarA) * 100 : 0;
+        const daftarB = tipeC[b] || 0;
+        const nimAktifB = Math.max(0, (tipeNimC[b] || 0) - (tipeUndurC[b] || 0));
+        const pctB = daftarB > 0 ? (nimAktifB / daftarB) * 100 : 0;
+        return pctB - pctA;
+      });
+
+      // 2. Proses data yang sudah terurut
+      _tblData.sekolahKonversi = tipeKeys.map(t => {
+        const daftar = tipeC[t] || 0;
+        const nimAktif = Math.max(0, (tipeNimC[t] || 0) - (tipeUndurC[t] || 0));
+        const pct = daftar > 0 ? ((nimAktif / daftar) * 100).toFixed(1) : '0.0';
+        return { tipe: t, daftar, nimAktif, pct: parseFloat(pct) };
+      });
+      renderTblSekolahKonversi();
+
+      // Chart detail konversi — pakai NIM Aktif
+      let konversiTipeDataList = tipeKeys.map((t) => {
+        const nimAktif = Math.max(0, (tipeNimC[t] || 0) - (tipeUndurC[t] || 0));
+        let persen = tipeC[t] > 0 ? +((nimAktif / tipeC[t]) * 100).toFixed(1) : 0;
+        return { tipe: t, value: persen };
+      });
+      konversiTipeDataList.sort((a, b) => b.value - a.value);
+      let sortedTipeLabels = konversiTipeDataList.map((item) => item.tipe);
+      let sortedTipeValues = konversiTipeDataList.map((item) => item.value);
+      mkChart("chartSekolahKonversiDetail", {
+        type: "bar",
+        data: {
+          labels: sortedTipeLabels, // Menggunakan label yang sudah terurut
+          datasets: [
+            {
+              label: "Konversi (%)",
+              data: sortedTipeValues, // Menggunakan nilai yang sudah terurut
+              backgroundColor: sortedTipeLabels.map((_, i) => tipeColors[i % tipeColors.length]),
+              borderColor: sortedTipeLabels.map((_, i) => tipeColors[i % tipeColors.length]),
+              borderWidth: 0,
+              borderRadius: 0,
+            },
+          ],
+        },
+        options: defaultBarOpts("Konversi (%)", false, true),
+      });
+
+      // Top 10 sekolah
+      const sekolahC = {};
+      d.forEach((r) => {
+        const s = String(r["Tempat Pendidikan"] || "").trim();
+        if (!s) return;
+        sekolahC[s] = (sekolahC[s] || 0) + 1;
+      });
+      const top10Sekolah = Object.entries(sekolahC)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      mkChart("chartSekolahTop10", {
+        type: "bar",
+        data: {
+          labels: top10Sekolah.map(([s]) => (s.length > 20 ? s.slice(0, 20) + "…" : s)),
+          datasets: [{ label: "Pendaftar", data: top10Sekolah.map(([, n]) => n), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+
+      // Hitung NIM Aktif per sekolah
+      const sekolahNimC = {}, sekolahUndurC = {};
+      d.forEach((r) => {
+        const s = String(r["Tempat Pendidikan"] || "").trim();
+        if (!s) return;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (hasNim) sekolahNimC[s] = (sekolahNimC[s] || 0) + 1;
+        if (isUndur) sekolahUndurC[s] = (sekolahUndurC[s] || 0) + 1;
+      });
+
+      // Tabel Top 10 Sekolah
+      _tblData.sekolahTop10 = top10Sekolah.map(([s, n]) => ({
+        nama: s,
+        pendaftar: n,
+        nimAktif: Math.max(0, (sekolahNimC[s] || 0) - (sekolahUndurC[s] || 0))
+      }));
+      renderTblSekolahTop10();
+
+      // Asal daerah
+      const kotaC = {};
+      d.forEach((r) => {
+        const k = getKota(r);
+        kotaC[k] = (kotaC[k] || 0) + 1;
+      });
+      const kotaSorted = Object.entries(kotaC).sort((a, b) => b[1] - a[1]);
+      const kalbarRows = kotaSorted.filter(([k]) => k !== "Luar Kalbar / Lainnya");
+      // Gunakan kalbarRows saja (tanpa "Luar Kalbar") untuk chart per kab/kota
+      const kalbarColors = ["#4285f4", "#ea4335", "#fbbc04", "#34a853", "#1a73e8", "#e8710a", "#24c1e0", "#9334e6", "#e52592", "#fa7b17", "#12b5cb", "#0d652d", "#b31412", "#185abc"];
+      mkChart("chartKotaKalbar", {
+        type: "bar",
+        data: {
+          labels: kalbarRows.map(([k]) => k),
+          datasets: [
+            {
+              label: "Pendaftar",
+              data: kalbarRows.map(([, n]) => n),
+              backgroundColor: kalbarRows.map(([,], i) => kalbarColors[i % kalbarColors.length]),
+              borderColor: kalbarRows.map(([,], i) => kalbarColors[i % kalbarColors.length]),
+              borderWidth: 0,
+              borderRadius: 0,
+            },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+
+      const inKalbar = d.filter((r) => isKalbar(r)).length;
+      const luarKalbar = d.length - inKalbar;
+      mkChart("chartKalbarLuar", {
+        type: "doughnut",
+        data: {
+          labels: ["Dalam Kalbar", "Luar Kalbar / Lainnya"],
+          datasets: [{ data: [inKalbar, luarKalbar], backgroundColor: ["#4285f4", "#ea4335"], borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // Penempatan pilihan
+      let diP1 = 0,
+        diP2 = 0,
+        diOther = 0;
+      d.filter((r) => String(r["Terima"]) === "1" || r["Terima"] === 1).forEach((r) => {
+        const dj = String(r["Diterima Pada Jurusan"] || "").trim();
+        const p1 = String(r["Pilihan 1"] || "").trim();
+        const p2 = String(r["Pilihan 2"] || "").trim();
+        if (!dj) return;
+        if (dj === p1) diP1++;
+        else if (p2 && dj === p2) diP2++;
+        else diOther++;
+      });
+      mkChart("chartPenempatanPilihan", {
+        type: "doughnut",
+        data: {
+          labels: ["Diterima di Pilihan 1", "Diterima di Pilihan 2", "Lainnya"],
+          datasets: [{ data: [diP1, diP2, diOther], backgroundColor: ["#4285f4", "#ea4335", "#fbbc04"], borderWidth: 0 }],
+        },
+        options: doughnutOpts(),
+      });
+
+      // Distribusi Pilihan 1
+      const p1C = counter(d, "Pilihan 1");
+      const p1Keys = Object.keys(p1C).sort((a, b) => p1C[b] - p1C[a]);
+      mkChart("chartDistribusiPilihan1", {
+        type: "bar",
+        data: {
+          labels: p1Keys.map(prodiShort),
+          datasets: [{ label: "Pilihan 1", data: p1Keys.map((k) => p1C[k]), backgroundColor: p1Keys.map((p) => prodiColor(p)), borderColor: p1Keys.map((p) => prodiColor(p)), borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+
+      // Top 10 pasangan prodi
+      const pasangC = {};
+      d.forEach((r) => {
+        const p1 = String(r["Pilihan 1"] || "").trim();
+        const p2 = String(r["Pilihan 2"] || "").trim();
+        if (p1 && p2) {
+          const key = p1 + "|||" + p2;
+          pasangC[key] = (pasangC[key] || 0) + 1;
+        }
+      });
+      const top10Pasang = Object.entries(pasangC)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      _tblData.pasanganProdi = top10Pasang.map(([k, n]) => { const [p1, p2] = k.split('|||'); return { p1, p2, n }; });
+      renderTblPasanganProdi();
+
+      // Tabel Rincian per Jalur (di seksi Jalur Masuk)
+      _tblData.rincianJalur = jKeys.map(j => {
+        const s = jalurStats[j];
+        return { label: jalurShort(j), daftar: s.daftar, nimAktif: s.nimAktif, pct: s.daftar > 0 ? fmtPct(s.nimAktif / s.daftar) : '0%' };
+      });
+      renderTblRincianJalur();
+
+      // Pendaftar per bulan per jalur
+      const bulanJalur = {};
+      d.forEach((r) => {
+        const dt = parseDate(r["Tgl Daftar"]);
+        if (!dt) return;
+        const bk = dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0");
+        const j = r["Jalur"] || "Tidak Diketahui";
+        if (!bulanJalur[bk]) bulanJalur[bk] = {};
+        bulanJalur[bk][j] = (bulanJalur[bk][j] || 0) + 1;
+      });
+      const bKeys = Object.keys(bulanJalur).sort();
+      const bLabels = bKeys.map((k) => {
+        const [y, m] = k.split("-");
+        return MONTH_ID[+m - 1] + " " + y.slice(2);
+      });
+      const jalurAll = Object.keys(JALUR_COLORS);
+      mkChart("chartBulanJalur", {
+        type: "bar",
+        data: {
+          labels: bLabels,
+          datasets: jalurAll.map((j) => ({
+            label: jalurShort(j),
+            data: bKeys.map((bk) => (bulanJalur[bk] || {})[j] || 0),
+            backgroundColor: JALUR_COLORS[j] || "#4285f4",
+            borderColor: JALUR_COLORS[j] || "#4285f4",
+            borderWidth: 0,
+            borderRadius: 0,
+          })),
+        },
+        options: defaultBarOpts("Jumlah", false, false, true),
+      });
+
+      // Kumulatif
+      let cum = 0;
+      const cumData = bKeys.map((bk) => {
+        cum += Object.values(bulanJalur[bk]).reduce((a, b) => a + b, 0);
+        return cum;
+      });
+      mkChart("chartKumulatif", {
+        type: "line",
+        data: {
+          labels: bLabels,
+          datasets: [{ label: "Kumulatif Pendaftar", data: cumData, borderColor: "#4285f4", backgroundColor: "#e6efff", borderWidth: 1, fill: true, tension: 0.1, pointBackgroundColor: "#4285f4", pointRadius: 4 }],
+        },
+        options: defaultBarOpts("Jumlah Kumulatif", false),
+      });
+
+      // Gender per prodi (pendaftar & NIM Aktif)
+      const gProdiDaftar = {},
+        gProdiNimAktif = {};
+      d.forEach((r) => {
+        const p = String(r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        if (!gProdiDaftar[p]) gProdiDaftar[p] = { L: 0, P: 0 };
+        if (r["JK"] === "L") gProdiDaftar[p].L++;
+        else if (r["JK"] === "P") gProdiDaftar[p].P++;
+      });
+      // NIM Aktif = punya NIM dan bukan undur diri
+      d.forEach((r) => {
+        const p = String(r["Diterima Pada Jurusan"] || r["Pilihan 1"] || "").trim();
+        if (!p) return;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+        if (hasNim && !isUndur) {
+          if (!gProdiNimAktif[p]) gProdiNimAktif[p] = { L: 0, P: 0 };
+          if (r["JK"] === "L") gProdiNimAktif[p].L++;
+          else if (r["JK"] === "P") gProdiNimAktif[p].P++;
+        }
+      });
+      const gpKeys = allProdi;
+      mkChart("chartGenderProdiDaftar", {
+        type: "bar",
+        data: {
+          labels: gpKeys.map(prodiShort),
+          datasets: [
+            { label: "Laki-laki", data: gpKeys.map((p) => (gProdiDaftar[p] || {}).L || 0), backgroundColor: "#fbbc04", borderColor: "#fbbc04", borderWidth: 0, borderRadius: 0 },
+            { label: "Perempuan", data: gpKeys.map((p) => (gProdiDaftar[p] || {}).P || 0), backgroundColor: "#34a853", borderColor: "#34a853", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+      const gpNimKeys = Object.keys(gProdiNimAktif).sort();
+      mkChart("chartGenderProdiDiterima", {
+        type: "bar",
+        data: {
+          labels: gpNimKeys.map(prodiShort),
+          datasets: [
+            { label: "Laki-laki", data: gpNimKeys.map((p) => (gProdiNimAktif[p] || {}).L || 0), backgroundColor: "#fbbc04", borderColor: "#fbbc04", borderWidth: 0, borderRadius: 0 },
+            { label: "Perempuan", data: gpNimKeys.map((p) => (gProdiNimAktif[p] || {}).P || 0), backgroundColor: "#34a853", borderColor: "#34a853", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+
+      // Top Sekolah: pendaftar & diterima
+      const top10SD = Object.entries(sekolahC)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      mkChart("chartTopSekolahDaftar", {
+        type: "bar",
+        data: {
+          labels: top10SD.map(([s]) => (s.length > 18 ? s.slice(0, 18) + "…" : s)),
+          datasets: [
+            { label: "Pendaftar", data: top10SD.map(([s]) => sekolahC[s] || 0), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 },
+            { label: "NIM Aktif", data: top10SD.map(([s]) => Math.max(0, (sekolahNimC[s] || 0) - (sekolahUndurC[s] || 0))), backgroundColor: "#ea4335", borderColor: "#ea4335", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+      const sekolahKonversiData = Object.entries(sekolahC)
+        .filter(([s, n]) => n >= 5)
+        .map(([s, n]) => {
+          const nimAktifS = Math.max(0, (sekolahNimC[s] || 0) - (sekolahUndurC[s] || 0));
+          return { s, n, nimAktifS, pct: nimAktifS / n };
+        })
+        .sort((a, b) => b.pct - a.pct)
+        .slice(0, 10)
+        .sort((a, b) => b.n - a.n);
+      mkChart("chartTopSekolahKonversi", {
+        type: "bar",
+        data: {
+          labels: sekolahKonversiData.map((x) => (x.s.length > 18 ? x.s.slice(0, 18) + "…" : x.s)),
+          datasets: [
+            { label: "Pendaftar", data: sekolahKonversiData.map((x) => x.n), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 },
+            { label: "NIM Aktif", data: sekolahKonversiData.map((x) => x.nimAktifS), backgroundColor: "#ea4335", borderColor: "#ea4335", borderWidth: 0, borderRadius: 0 },
+          ],
+        },
+        options: defaultBarOpts("Jumlah", false, false, false),
+      });
+
+      // Waktu tunggu tes
+      const wt = [];
+      const wtJalur = {};
+      d.forEach((r) => {
+        const td = parseDate(r["Tgl Daftar"]);
+        const tt = parseDate(r["Tanggal Test"]);
+        if (!td || !tt) return;
+        const days = Math.round((tt - td) / 86400000);
+        if (days < 0 || days > 365) return;
+        wt.push(days);
+        const j = r["Jalur"] || "Tidak Diketahui";
+        if (!wtJalur[j]) wtJalur[j] = [];
+        wtJalur[j].push(days);
+      });
+      // Histogram
+      const bins = {};
+      wt.forEach((d2) => {
+        const b = Math.floor(d2 / 7) * 7;
+        bins[b] = (bins[b] || 0) + 1;
+      });
+      const binKeys = Object.keys(bins)
+        .map(Number)
+        .sort((a, b) => a - b);
+      mkChart("chartWaktuTunggu", {
+        type: "bar",
+        data: {
+          labels: binKeys.map((b) => `${b}-${b + 6} hari`),
+          datasets: [{ label: "Jumlah Pendaftar", data: binKeys.map((b) => bins[b]), backgroundColor: "#4285f4", borderColor: "#4285f4", borderWidth: 0, borderRadius: 0 }],
+        },
+        options: defaultBarOpts("Jumlah", false),
+      });
+      // Avg waktu per jalur
+      const wtAvgKeys = Object.keys(wtJalur);
+      const wtAvg = wtAvgKeys.map((j) => {
+        const arr = wtJalur[j];
+        return arr.reduce((a, b) => a + b, 0) / arr.length;
+      });
+      mkChart("chartWaktuTungguJalur", {
+        type: "bar",
+        data: {
+          labels: wtAvgKeys.map(jalurShort),
+          datasets: [
+            {
+              label: "Rata-rata Hari",
+              data: wtAvg.map((v) => +v.toFixed(1)),
+              backgroundColor: wtAvgKeys.map((j) => JALUR_COLORS[j] || "#4285f4"),
+              borderColor: wtAvgKeys.map((j) => JALUR_COLORS[j] || "#4285f4"),
+              borderWidth: 0,
+              borderRadius: 0,
+            },
+          ],
+        },
+        options: defaultBarOpts("Rata-rata Hari", false),
+      });
+    }
+
+    // REKAP PAGE
+    function renderRekap() {
+      const d = DATA;
+      const prodiList = Object.keys(PRODI_COLORS);
+
+      // Count per prodi
+      const stats = {};
+      prodiList.forEach((p) => {
+        stats[p] = { baru: 0, pindahan: 0, p1: 0, p2: 0, tes: 0, diterima: 0, nim: 0, undur: 0, nimAktif: 0 };
+      });
+
+      d.forEach((r) => {
+        const p1 = String(r["Pilihan 1"] || "").trim();
+        const p2 = String(r["Pilihan 2"] || "").trim();
+        const dp = String(r["Diterima Pada Jurusan"] || "").trim();
+        const jalur = String(r["Jalur"] || "");
+        const isBaru = jalur.includes("Peserta Didik Baru") || jalur.includes("PPG");
+        const isPindahan = jalur.includes("Pindahan");
+        const hasTes = String(r["Tanggal Test"] || "").trim() && String(r["Tanggal Test"] || "").trim() !== "nan" && String(r["Tanggal Test"] || "").trim() !== "NaT";
+        const isDiterima = String(r["Terima"]) === "1" || r["Terima"] === 1;
+        const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
+        const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+
+        // assign to prodi
+        if (p1 && stats[p1]) {
+          if (isBaru) stats[p1].baru++;
+          if (isPindahan) stats[p1].pindahan++;
+          stats[p1].p1++;
+          if (hasTes) stats[p1].tes++;
+        }
+        if (p2 && stats[p2]) stats[p2].p2++;
+
+        // diterima goes to the received prodi
+        const targetProdi = dp || p1;
+        if (targetProdi && stats[targetProdi]) {
+          if (isDiterima) stats[targetProdi].diterima++;
+          if (hasNim) stats[targetProdi].nim++;
+          if (isUndur) stats[targetProdi].undur++;
+          stats[targetProdi].nimAktif = Math.max(0, stats[targetProdi].nim - stats[targetProdi].undur);
+        }
+      });
+
+      rekapData = prodiList.map((p) => {
+        const s = stats[p];
+        const total = s.baru + s.pindahan;
+        const nimAktif = Math.max(0, s.nim - s.undur);
+        const konv = total > 0 ? (nimAktif / total) * 100 : 0;
+        return [prodiShort(p), s.baru, s.pindahan, s.p1, s.p2, s.tes, s.diterima, s.nim, s.undur, nimAktif, +konv.toFixed(1)];
+      });
+
+      renderRekapTable();
+    }
+
+    function renderRekapTable() {
+      const tbody = document.getElementById("rekapBody");
+      const tfoot = document.getElementById("rekapFoot");
+      const rows = [...rekapData];
+      if (rekapSortCol >= 0) {
+        rows.sort((a, b) => {
+          const va = a[rekapSortCol],
+            vb = b[rekapSortCol];
+          if (typeof va === "number") return rekapSortAsc ? va - vb : vb - va;
+          return rekapSortAsc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+        });
+      }
+      tbody.innerHTML = rows
+        .map((r) => {
+          const konv = r[10];
+          const badgeCls = konv < 33 ? "badge-red" : konv < 66 ? "badge-orange" : "badge-green";
+          return `
+          <tr>
+            <td style="white-space:nowrap">${r[0]}</td>
+            ${r .slice(1, 10) .map((v) => `
+            <td class="text-left text-num">${fmtN(v)}</td>`) .join("")}
+            <td class="text-left"><span class="badge ${badgeCls}">${konv.toFixed(1)}%</span></td>
+          </tr>`;
+        })
+        .join("");
+
+      // Footer totals
+      const totals = Array(11).fill(0);
+      rekapData.forEach((r) => {
+        for (let i = 1; i < 10; i++) totals[i] += r[i];
+      });
+      const totalKonv = totals[1] + totals[2] > 0 ? (totals[9] / (totals[1] + totals[2])) * 100 : 0;
+      tfoot.innerHTML = `
+      <tr>
+        <td style="font-weight:700">TOTAL</td>
+        ${totals .slice(1, 10) .map((v) => `
+        <td class="text-left">${fmtN(v)}</td>`) .join("")}
+        <td class="text-left"><span class="badge badge-blue">${totalKonv.toFixed(1)}%</span></td>
+      </tr>`;
+    }
+
+    function sortRekap(col) {
+      if (rekapSortCol === col) rekapSortAsc = !rekapSortAsc;
+      else {
+        rekapSortCol = col;
+        rekapSortAsc = col === 0;
+      }
+      renderRekapTable();
+    }
+
+    //CHART DEFAULT OPTIONS
+    function defaultBarOpts(ylabel, horizontal, isPercent, stacked) {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: horizontal ? "y" : "x",
+        plugins: {
+          legend: { display: stacked || false, position: "bottom", labels: { font: { family: "'Inter',sans-serif", size: 10 }, boxWidth: 12 } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => " " + (isPercent ? ctx.raw + "%" : fmtN(ctx.raw)),
+            },
+          },
+        },
+        scales: {
+          x: {
+            stacked: !!stacked,
+            grid: { color: "#f1f5f9" },
+            ticks: {
+              font: { family: "'Inter',sans-serif", size: 10 },
+              maxRotation: 45,
+              minRotation: 0,
+              callback: function (val, index) {
+                const label = this.getLabelForValue(val);
+                return label.length > 10 ? label.slice(0, 10) + "…" : label;
+              },
+            },
+          },
+          y: { stacked: !!stacked, grid: { color: "#f1f5f9" }, beginAtZero: true, ticks: { font: { family: "'Inter',sans-serif", size: 10 }, callback: (v) => (isPercent ? v + "%" : fmtN(v)) } },
+        },
+      };
+    }
+    function doughnutOpts() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: "bottom", labels: { font: { family: "'Inter',sans-serif", size: 10 }, boxWidth: 12, padding: 10 } },
+          tooltip: { callbacks: { label: (ctx) => " " + fmtN(ctx.raw) + " (" + fmtPct(ctx.raw / ctx.dataset.data.reduce((a, b) => a + b, 0)) + ")" } },
+        },
+      };
+    }
+
+    // START
+    init();
+  </script>
+</body>
+</html>
