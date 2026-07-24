@@ -16,6 +16,7 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     :root {
       --primary: #1e3a5f;
       --primary-light: #ebf2ff;
@@ -42,6 +43,7 @@
       --section-gap: 28px;
       --block-gap: 20px;
     }
+
     body {
       font-family: "Inter", sans-serif;
       background: var(--bg);
@@ -53,6 +55,7 @@
       overflow-x: hidden;
       padding-bottom: 48px;
     }
+
     /* HEADER */
     .header {
       background: var(--primary);
@@ -65,6 +68,7 @@
       width: 100%;
       overflow: hidden;
     }
+
     .header-inner {
       max-width: 1400px;
       margin: 0 auto;
@@ -75,6 +79,7 @@
       padding: 14px 0;
       flex-wrap: wrap;
     }
+
     .header-brand {
       display: flex;
       align-items: center;
@@ -82,9 +87,11 @@
       min-width: 0;
       flex: 1;
     }
+
     .header-title {
       min-width: 0;
     }
+
     .header-title h1 {
       font-size: 15px;
       font-weight: 700;
@@ -94,6 +101,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .header-title p {
       font-size: 12px;
       color: rgba(255, 255, 255, 0.7);
@@ -101,6 +109,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .header-logo {
       width: 44px;
       height: 44px;
@@ -115,12 +124,14 @@
       font-size: 16px;
       flex-shrink: 0;
     }
+
     .header-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .last-upload {
       font-size: 8px;
       color: rgba(255, 255, 255, 0.8);
@@ -130,6 +141,7 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       white-space: nowrap;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -145,34 +157,42 @@
       text-decoration: none;
       white-space: nowrap;
     }
+
     .btn-primary {
       background: #fff;
       color: var(--primary);
     }
+
     .btn-primary:hover {
       background: #f0f6ff;
       box-shadow: var(--shadow-md);
     }
+
     .btn-outline {
       background: transparent;
       color: rgba(255, 255, 255, 0.85);
     }
+
     .btn-outline:hover {
       background: rgba(255, 255, 255, 0.1);
       color: white;
       border-color: rgba(255, 255, 255, 0.5);
     }
+
     .btn-danger {
       background: #fff;
       color: var(--primary);
     }
+
     .btn-danger:hover {
       background: #f0f6ff;
       box-shadow: var(--shadow-md);
     }
+
     #fileInput {
       display: none;
     }
+
     /* MAIN */
     .main {
       max-width: 1400px;
@@ -182,6 +202,7 @@
       width: 100%;
       box-sizing: border-box;
     }
+
     /* SECTION TITLE */
     .section-title {
       font-size: 15px;
@@ -194,6 +215,7 @@
       gap: 10px;
       letter-spacing: 0.01em;
     }
+
     .section-title::before {
       content: "";
       width: 5px;
@@ -202,6 +224,7 @@
       border-radius: 3px;
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
+
     /* KPI CARDS */
     .kpi-grid {
       display: grid;
@@ -209,6 +232,7 @@
       gap: var(--gap);
       margin-bottom: var(--section-gap);
     }
+
     .kpi-card {
       background: var(--surface);
       border: 1.5px solid var(--border);
@@ -225,6 +249,7 @@
       align-items: center;
       text-align: center;
     }
+
     .kpi-card::before {
       content: "";
       position: absolute;
@@ -233,24 +258,31 @@
       right: 0;
       height: 4px;
     }
+
     .kpi-card.blue::before {
       background: #1e3a5f;
     }
+
     .kpi-card.green::before {
       background: #1e3a5f;
     }
+
     .kpi-card.orange::before {
       background: #1e3a5f;
     }
+
     .kpi-card.red::before {
       background: #1e3a5f;
     }
+
     .kpi-card.purple::before {
       background: #1e3a5f;
     }
+
     .kpi-card.cyan::before {
       background: #1e3a5f;
     }
+
     .kpi-value {
       font-size: 28px;
       font-weight: 700;
@@ -259,6 +291,7 @@
       word-break: break-all;
       max-width: 100%;
     }
+
     .kpi-label {
       font-size: 12px;
       color: var(--text-muted);
@@ -268,6 +301,7 @@
       word-break: break-word;
       text-align: center;
     }
+
     .kpi-sub {
       font-size: 11px;
       color: var(--text-light);
@@ -275,6 +309,7 @@
       word-break: break-word;
       text-align: center;
     }
+
     /* CARDS / GRID */
     .card {
       background: var(--surface);
@@ -285,6 +320,7 @@
       min-width: 0;
       overflow: hidden;
     }
+
     .card-title {
       font-size: 11px;
       font-weight: 700;
@@ -300,26 +336,31 @@
       word-break: break-word;
       line-height: 1.4;
     }
+
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--gap);
     }
+
     .grid-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: var(--gap);
     }
+
     .grid-12 {
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: var(--gap);
     }
+
     .grid-21 {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: var(--gap);
     }
+
     /* Prevent grid children from overflowing their column track */
     .grid-2>*,
     .grid-3>*,
@@ -327,24 +368,30 @@
     .grid-21>* {
       min-width: 0;
     }
+
     /* Wrapper to provide consistent spacing between each section block */
     .section-block {
       margin-bottom: var(--section-gap);
     }
+
     /* CHARTS */
     .chart-wrap {
       position: relative;
       height: 260px;
     }
+
     .chart-wrap.tall {
       height: 320px;
     }
+
     .chart-wrap.short {
       height: 200px;
     }
+
     .chart-wrap.xshort {
       height: 160px;
     }
+
     /* TABLES */
     .tbl-wrap {
       overflow-x: auto;
@@ -353,6 +400,7 @@
       -webkit-overflow-scrolling: touch;
       max-width: 100%;
     }
+
     .tbl {
       width: 100%;
       border-collapse: collapse;
@@ -360,6 +408,7 @@
       min-width: 320px;
       /* ensures table scrolls inside wrapper, not the whole page */
     }
+
     .tbl thead th {
       background: #1e3a5f;
       padding: 10px 12px;
@@ -376,14 +425,17 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
+
     /* Sortable column headers */
     .tbl thead th.sortable {
       cursor: pointer;
       user-select: none;
     }
+
     .tbl thead th.sortable:hover {
       background: #16305a;
     }
+
     .tbl thead th .sort-icon {
       display: inline-block;
       margin-left: 4px;
@@ -391,31 +443,39 @@
       font-size: 9px;
       vertical-align: middle;
     }
+
     .tbl thead th.sort-asc .sort-icon,
     .tbl thead th.sort-desc .sort-icon {
       opacity: 1;
     }
+
     /* Ensure right-aligned headers match their cell content */
     .tbl thead th.text-right {
       text-align: right;
     }
+
     .tbl thead th.text-center {
       text-align: center;
     }
+
     .tbl tbody tr {
       border-bottom: 1px solid var(--border);
       transition: background 0.1s;
     }
+
     .tbl tbody tr:last-child {
       border-bottom: none;
     }
+
     .tbl tbody tr:hover {
       background: #ebf2ff;
     }
+
     .tbl tbody td {
       padding: 8px 12px;
       color: var(--text);
     }
+
     #tblProdiKonversi td:first-child,
     #tblPasanganProdi td:first-child,
     #tblPasanganProdi td:nth-child(2),
@@ -429,10 +489,12 @@
       max-width: 0;
       width: 45%;
     }
+
     #tblPasanganProdi td:first-child,
     #tblPasanganProdi td:nth-child(2) {
       width: 38%;
     }
+
     #tblSekolahTop10 td:first-child {
       max-width: 0;
       width: 55%;
@@ -440,6 +502,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .tbl tfoot td {
       padding: 10px 12px;
       font-weight: 700;
@@ -448,6 +511,7 @@
       border-top: 2px solid var(--border-strong);
       color: var(--text);
     }
+
     .badge {
       display: inline-flex;
       align-items: left;
@@ -459,31 +523,38 @@
       width: 48px;
       justify-content: left;
     }
+
     .badge-blue {
       background: #1e3a5f;
       color: #fff;
     }
+
     .badge-green {
       background: #0d7a4e;
       color: #fff;
     }
+
     .badge-red {
       background: #c0182a;
       color: #fff;
     }
+
     .badge-orange {
       background: #f17925;
       color: #fff;
     }
+
     .badge-purple {
       background: #5b21b6;
       color: #fff;
     }
+
     .badge-gray {
       background: #e2e8f0;
       color: var(--text-muted);
       border: 1px solid var(--border-strong);
     }
+
     /* HIGHLIGHT CARD */
     .highlight-warn {
       background: #fffbeb;
@@ -496,6 +567,7 @@
       gap: 10px;
       font-size: 13px;
     }
+
     .highlight-success {
       background: #f0fdf4;
       border: 1px solid #86efac;
@@ -507,6 +579,7 @@
       gap: 10px;
       font-size: 13px;
     }
+
     /* REKAP TABLE */
     #rekapTable {
       font-size: 11px;
@@ -514,9 +587,11 @@
       width: 100%;
       min-width: 700px;
     }
+
     #rekapTable colgroup {
       display: table-column-group;
     }
+
     #rekapTable thead th {
       font-size: 11px;
       padding: 8px 12px;
@@ -533,6 +608,7 @@
       top: 0;
       z-index: 2;
     }
+
     /* Sticky first column — header cell */
     #rekapTable thead th:first-child {
       text-align: left;
@@ -543,11 +619,13 @@
       background: #1e3a5f;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.15);
     }
+
     /* Sticky first column — body cells */
     #rekapTable tbody td {
       padding: 2px 12px;
       vertical-align: middle;
     }
+
     #rekapTable tbody td:first-child {
       text-align: left;
       position: sticky;
@@ -557,18 +635,22 @@
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
       font-weight: 700;
     }
+
     #rekapTable tbody tr:hover td:first-child {
       background: #ebf2ff;
     }
+
     #rekapTable tbody td:not(:first-child) {
       text-align: left;
     }
+
     /* Sticky first column - footer cells */
     #rekapTable tfoot td {
       padding: 4px 12px;
       font-size: 11px;
       text-align: left;
     }
+
     #rekapTable tfoot td:first-child {
       text-align: left;
       position: sticky;
@@ -577,6 +659,7 @@
       background: #f1f4f8;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
     }
+
     /* LOADING */
     .loading-overlay {
       position: fixed;
@@ -589,6 +672,7 @@
       flex-direction: column;
       gap: 12px;
     }
+
     .spinner {
       width: 40px;
       height: 40px;
@@ -597,46 +681,57 @@
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
     }
+
     @keyframes spin {
       to {
         transform: rotate(360deg);
       }
     }
+
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .header {
         padding: 0 16px;
       }
+
       .header-inner {
         padding: 10px 0;
         gap: 10px;
       }
+
       .header-logo {
         width: 36px;
         height: 36px;
         font-size: 13px;
       }
+
       .header-title h1 {
         font-size: 13px;
       }
+
       .header-title p {
         font-size: 11px;
       }
+
       .header-actions {
         gap: 6px;
         flex-wrap: wrap;
       }
+
       .btn {
         padding: 6px 10px;
         font-size: 11px;
       }
+
       .last-upload {
         font-size: 10px;
         padding: 4px 8px;
       }
+
       .main {
         padding: 16px 12px;
       }
+
       /* All multi-col grids collapse to single column */
       .grid-2,
       .grid-3,
@@ -644,75 +739,96 @@
       .grid-21 {
         grid-template-columns: 1fr;
       }
+
       .sub-grid {
         grid-template-columns: 1fr;
       }
+
       .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
       }
+
       .kpi-card {
         padding: 14px;
       }
+
       .kpi-value {
         font-size: 22px;
       }
+
       .kpi-label {
         font-size: 11px;
       }
+
       .card {
         padding: 14px;
       }
+
       .card-title {
         margin-bottom: 12px;
       }
+
       .section-title {
         font-size: 14px;
         margin-bottom: 12px;
       }
+
       .section-block {
         margin-bottom: 20px;
       }
+
       .seksi-divider {
         margin: 28px 0 18px;
       }
+
       .seksi-badge {
         font-size: 12px;
         padding: 5px 12px;
       }
+
       .chart-wrap {
         height: 200px;
       }
+
       .chart-wrap.tall {
         height: 240px;
       }
+
       .chart-wrap.short {
         height: 160px;
       }
+
       .chart-wrap.xshort {
         height: 140px;
       }
+
       /* Tables: let wrapper scroll horizontally */
       .tbl-wrap {
         border-radius: 0;
       }
+
       #rekapTable {
         table-layout: auto;
         min-width: 520px;
       }
+
       #rekapTable thead th {
         font-size: 10px;
         padding: 8px 6px;
         white-space: nowrap;
       }
+
       #rekapTable tbody td {
         padding: 6px 6px;
         font-size: 11px;
       }
+
       #rekapTable tfoot td {
         font-size: 10px;
         padding: 6px 6px;
       }
+
       /* Keep sticky column working on mobile */
       #rekapTable thead th:first-child,
       #rekapTable tbody td:first-child,
@@ -725,62 +841,79 @@
         word-break: break-word;
       }
     }
+
     @media (max-width: 480px) {
       .header {
         padding: 0 12px;
       }
+
       .header-inner {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
       }
+
       .header-actions {
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
       }
+
       .last-upload {
         display: none;
       }
+
       .main {
         padding: 10px;
       }
+
       .kpi-grid {
         grid-template-columns: 1fr 1fr;
         gap: 8px;
       }
+
       .kpi-card {
         padding: 12px;
       }
+
       .kpi-value {
         font-size: 20px;
       }
+
       .kpi-label {
         font-size: 10px;
       }
+
       .kpi-sub {
         font-size: 10px;
       }
+
       .card {
         padding: 12px;
       }
+
       .section-block {
         margin-bottom: 16px;
       }
+
       .chart-wrap {
         height: 180px;
       }
+
       .chart-wrap.tall {
         height: 210px;
       }
+
       .chart-wrap.short {
         height: 150px;
       }
     }
+
     /* SINGLE PAGE DIVIDERS */
     .seksi-anchor {
       scroll-margin-top: 80px;
     }
+
     .seksi-divider {
       display: flex;
       align-items: center;
@@ -788,18 +921,21 @@
       margin: 40px 0 24px;
       position: relative;
     }
+
     .seksi-divider::before {
       content: "";
       flex: 1;
       height: 2px;
       background: linear-gradient(to right, var(--border-strong), transparent);
     }
+
     .seksi-divider::after {
       content: "";
       flex: 1;
       height: 2px;
       background: linear-gradient(to left, var(--border-strong), transparent);
     }
+
     .seksi-badge {
       display: flex;
       align-items: center;
@@ -815,6 +951,7 @@
       box-shadow: var(--shadow-md);
       letter-spacing: 0.02em;
     }
+
     /* FOOTER */
     footer {
       position: fixed;
@@ -832,21 +969,26 @@
       z-index: 100;
       letter-spacing: 0.05em;
     }
+
     .text-right {
       text-align: right;
     }
+
     .text-center {
       text-align: center;
     }
+
     .text-num {
       font-variant-numeric: tabular-nums;
       font-weight: 700;
     }
+
     .sub-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
+
     /* TOUCH FRIENDLY */
     @media (hover: none) and (pointer: coarse) {
       .btn {
@@ -854,12 +996,14 @@
         padding: 10px 14px;
       }
     }
+
     /* Safety net: no element should cause horizontal scroll */
     .chart-wrap canvas {
       max-width: 100%;
     }
   </style>
 </head>
+
 <body>
   <!-- HEADER -->
   <header class="header">
@@ -888,6 +1032,7 @@
       </div>
     </div>
   </header>
+
   <!-- MAIN CONTENT -->
   <div class="main">
     <!-- LOADING -->
@@ -895,11 +1040,13 @@
       <div class="spinner"></div>
       <p style="font-size: 14px; font-weight: 700; color: var(--text-muted)">Memproses data...</p>
     </div>
+
     <!-- PAGE: INFORMASI -->
     <div id="seksi-ringkasan" class="seksi-anchor"></div>
     <div class="seksi-divider">
       <div class="seksi-badge">RINGKASAN INFORMASI</div>
     </div>
+
     <!-- KPI RINGKASAN -->
     <div class="section-block">
       <div class="section-title">Ringkasan Umum</div>
@@ -936,15 +1083,18 @@
         </div>
       </div>
     </div>
+
     <!-- KPI jalur -->
     <div class="section-block">
       <div class="section-title">Pendaftar per Jalur Masuk</div>
       <div class="kpi-grid" id="kpiJalurGrid"></div>
     </div>
+
     <div id="seksi-analisis" class="seksi-anchor"></div>
     <div class="seksi-divider">
       <div class="seksi-badge">ANALISIS DATA</div>
     </div>
+
     <!-- Prodi pendaftar tertinggi -->
     <div class="section-block">
       <div class="section-title">Program Studi dengan Pendaftar Tertinggi</div>
@@ -970,6 +1120,7 @@
         </div>
       </div>
     </div>
+
     <!-- Prodi perlu follow up -->
     <div class="section-block">
       <div class="section-title">Program Studi Perlu Follow-Up (Konversi Rendah)</div>
@@ -996,6 +1147,7 @@
         </div>
       </div>
     </div>
+
     <!-- Prodi: Daftar vs Tes -->
     <div class="section-block">
       <div class="section-title">Perbandingan Pendaftar &amp; Peserta Tes per Program Studi</div>
@@ -1022,6 +1174,7 @@
         </div>
       </div>
     </div>
+
     <!-- Undur diri -->
     <div class="section-block">
       <div class="section-title">Mahasiswa Undur Diri</div>
@@ -1046,6 +1199,7 @@
         </div>
       </div>
     </div>
+
     <!-- DISTRIBUSI PENDAFTAR -->
     <div class="section-block">
       <div class="section-title">Distribusi Pendaftar</div>
@@ -1064,6 +1218,7 @@
         </div>
       </div>
     </div>
+
     <!-- JALUR MASUK -->
     <div class="section-block">
       <div class="section-title">Jalur Masuk</div>
@@ -1094,6 +1249,9 @@
         </div>
       </div>
     </div>
+
+
+
     <!-- PROGRAM STUDI -->
     <div class="section-block">
       <div class="section-title">Pemilihan Program Studi</div>
@@ -1108,6 +1266,7 @@
         </div>
       </div>
     </div>
+
     <!-- POLA PILIHAN PRODI -->
     <div class="section-block">
       <div class="section-title">Pola Pilihan Program Studi</div>
@@ -1137,6 +1296,7 @@
         </div>
       </div>
     </div>
+
     <!-- GENDER PER PRODI -->
     <div class="section-block">
       <div class="section-title">Distribusi Gender per Program Studi</div>
@@ -1151,6 +1311,7 @@
         </div>
       </div>
     </div>
+
     <!-- ASAL SEKOLAH -->
     <div class="section-block">
       <div class="section-title">Tipe Asal Sekolah</div>
@@ -1181,6 +1342,7 @@
         </div>
       </div>
     </div>
+
     <!-- NAMA ASAL SEKOLAH -->
     <div class="section-block">
       <div class="section-title">Nama Asal Sekolah</div>
@@ -1206,6 +1368,7 @@
         </div>
       </div>
     </div>
+
     <!-- TOP SEKOLAH -->
     <div class="section-block">
       <div class="section-title">Top Sekolah: Pendaftar &amp; NIM Aktif</div>
@@ -1220,6 +1383,7 @@
         </div>
       </div>
     </div>
+
     <!-- ASAL DAERAH -->
     <div class="section-block">
       <div class="section-title">Asal Daerah</div>
@@ -1234,6 +1398,7 @@
         </div>
       </div>
     </div>
+
     <!-- TREN PENDAFTARAN -->
     <div class="section-block">
       <div class="section-title">Tren Pendaftaran</div>
@@ -1248,6 +1413,7 @@
         </div>
       </div>
     </div>
+
     <!-- PENDAFTAR PER BULAN PER JALUR -->
     <div class="section-block">
       <div class="section-title">Pendaftar per Bulan per Jalur</div>
@@ -1262,6 +1428,7 @@
         </div>
       </div>
     </div>
+
     <!-- WAKTU TUNGGU TES -->
     <div class="section-block">
       <div class="section-title">Distribusi Waktu Tunggu Tes</div>
@@ -1276,6 +1443,7 @@
         </div>
       </div>
     </div>
+
     <!-- PAGE: REKAPITULASI -->
     <div id="seksi-rekap" class="seksi-anchor"></div>
     <div class="seksi-divider">
@@ -1323,9 +1491,12 @@
     <!-- /section-block rekap -->
   </div>
   <!-- /main -->
+
   <footer>Andri Restandi &mdash; Keep It Simple, Stupid.</footer>
+
   <script>
     // (data tertanam dihapus - gunakan upload Excel)
+
     // COLOR MAP per Prodi
     const PRODI_COLORS = {
       "13104 - Kesehatan Masyarakat":                      "#4285f4",
@@ -1347,6 +1518,7 @@
       "86207 - Pendidikan Guru Pendidikan Anak Usia Dini": "#5f6368",
       "86208 - Pendidikan Agama Islam":                    "#00897b",
     };
+
     const PRODI_SHORT = {
       "13104 - Kesehatan Masyarakat":                      "Kesehatan Masyarakat S2",
       "13201 - Ilmu Kesehatan Masyarakat":                 "Ilmu Kesehatan Masyarakat",
@@ -1367,6 +1539,7 @@
       "86207 - Pendidikan Guru Pendidikan Anak Usia Dini": "Pendidikan Guru PAUD",
       "86208 - Pendidikan Agama Islam":                    "Pendidikan Agama Islam",
     };
+
     const JALUR_COLORS = {
       "Peserta Didik Baru / Seleksi Mandiri": "#4285f4",
       "Peserta Didik Baru / Beasiswa":        "#ea4335",
@@ -1379,11 +1552,13 @@
       "Peserta Didik Baru / Prestasi":        "Prestasi",
       "Pindahan / Seleksi Mandiri":           "Pindahan",
     };
+
     // STATE
     let DATA = [];
     let chartInstances = {};
     let rekapSortCol = -1, rekapSortAsc = true;
     let rekapData = [];
+
     // Sort state for sortable tables: { col: index, asc: bool }
     const _tblSort = {
       prodiPendaftar: { col: 1, asc: false },
@@ -1406,6 +1581,7 @@
       sekolahKonversi: [], // [{tipe, daftar, nimAktif, pct}]
       sekolahTop10: [], // [{nama, pendaftar, nimAktif}]
     };
+
     // UTILS
     function fmtN(n) {
       return n.toLocaleString("id-ID");
@@ -1455,6 +1631,7 @@
     }
     const MONTH_ID = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
     const DAY_ID = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
     // ── SORT HELPER ──
     function _sortRows(rows, getters, col, asc) {
       const get = getters[col];
@@ -1464,11 +1641,13 @@
         return asc ? String(va).localeCompare(String(vb), 'id') : String(vb).localeCompare(String(va), 'id');
       });
     }
+
     function _applySort(tableKey, col) {
       const s = _tblSort[tableKey];
       if (s.col === col) s.asc = !s.asc;
       else { s.col = col; s.asc = (col === 0); }
     }
+
     function _markSortHeaders(tableId, activeCol, asc) {
       const ths = document.querySelectorAll(`#${tableId} thead th.sortable`);
       ths.forEach((th, i) => {
@@ -1481,6 +1660,7 @@
         }
       });
     }
+
     // ── RENDER FUNCTIONS PER TABLE ──
     function renderTblProdiPendaftar() {
       const s = _tblSort.prodiPendaftar;
@@ -1495,10 +1675,12 @@
       ).join('');
       _markSortHeaders('tblProdiPendaftar', s.col, s.asc);
     }
+
     function sortTblProdiPendaftar(col) {
       _applySort('prodiPendaftar', col);
       renderTblProdiPendaftar();
     }
+
     function renderTblProdiKonversi() {
       const s = _tblSort.prodiKonversi;
       const getters = [r => r.label, r => r.daftar, r => r.nim, r => r.pct];
@@ -1515,10 +1697,12 @@
       }).join('');
       _markSortHeaders('tblProdiKonversi', s.col, s.asc);
     }
+
     function sortTblProdiKonversi(col) {
       _applySort('prodiKonversi', col);
       renderTblProdiKonversi();
     }
+
     function renderTblProdiDaftarTes() {
       const s = _tblSort.prodiDaftarTes;
       const getters = [r => r.label, r => r.daftar, r => r.tes, r => r.pct];
@@ -1535,10 +1719,12 @@
       }).join('');
       _markSortHeaders('tblProdiDaftarTes', s.col, s.asc);
     }
+
     function sortTblProdiDaftarTes(col) {
       _applySort('prodiDaftarTes', col);
       renderTblProdiDaftarTes();
     }
+
     function renderTblUndurDiri() {
       const s = _tblSort.undurDiri;
       const getters = [r => r.label, r => r.n];
@@ -1556,10 +1742,12 @@
       }
       _markSortHeaders('tblUndurDiri', s.col, s.asc);
     }
+
     function sortTblUndurDiri(col) {
       _applySort('undurDiri', col);
       renderTblUndurDiri();
     }
+
     function renderTblRincianJalur() {
       const s = _tblSort.rincianJalur;
       const getters = [r => r.label, r => r.daftar, r => r.nimAktif, r => parseFloat(r.pct)];
@@ -1573,10 +1761,12 @@
       ).join('');
       _markSortHeaders('tblRincianJalur', s.col, s.asc);
     }
+
     function sortTblRincianJalur(col) {
       _applySort('rincianJalur', col);
       renderTblRincianJalur();
     }
+
     function renderTblPasanganProdi() {
       const s = _tblSort.pasanganProdi;
       const getters = [r => r.p1, r => r.p2, r => r.n];
@@ -1590,10 +1780,12 @@
       ).join('');
       _markSortHeaders('tblPasanganProdi', s.col, s.asc);
     }
+
     function sortTblPasanganProdi(col) {
       _applySort('pasanganProdi', col);
       renderTblPasanganProdi();
     }
+
     function renderTblSekolahKonversi() {
       const s = _tblSort.sekolahKonversi;
       const getters = [r => r.tipe, r => r.daftar, r => r.nimAktif, r => r.pct];
@@ -1610,10 +1802,12 @@
       }).join('');
       _markSortHeaders('tblSekolahKonversi', s.col, s.asc);
     }
+
     function sortTblSekolahKonversi(col) {
       _applySort('sekolahKonversi', col);
       renderTblSekolahKonversi();
     }
+
     function renderTblSekolahTop10() {
       const s = _tblSort.sekolahTop10;
       const getters = [r => r.nama, r => r.pendaftar, r => r.nimAktif];
@@ -1630,10 +1824,12 @@
       ).join('');
       _markSortHeaders('tblSekolahTop10', s.col, s.asc);
     }
+
     function sortTblSekolahTop10(col) {
       _applySort('sekolahTop10', col);
       renderTblSekolahTop10();
     }
+
     // INIT
     function init() {
       // Cek apakah ada data tersimpan di localStorage
@@ -1656,9 +1852,11 @@
         }
       }
     }
+
     function showLoading(v) {
       document.getElementById("loadingOverlay").style.display = v ? "flex" : "none";
     }
+
     // FILE UPLOAD
     document.getElementById("fileInput").addEventListener("change", async function (e) {
       const file = e.target.files[0];
@@ -1695,8 +1893,10 @@
       showLoading(false);
       e.target.value = "";
     });
+
     // GOOGLE SHEET SYNC
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSch6x_BoN-6dkXkid-7kvuZhYyZ0k4pxwEesExDyXM6gEkEy37wu_mhKjPc_BycTjlHahV9AS_4B69/pub?gid=0&single=true&output=csv";
+
     async function syncFromGoogleSheet() {
       showLoading(true);
       try {
@@ -1732,6 +1932,7 @@
       }
       showLoading(false);
     }
+
     function resetData() {
       if (!confirm("Hapus semua data? Tindakan ini tidak dapat dibatalkan!")) return;
       // Hapus dari localStorage lalu reload — karena localStorage sudah kosong,
@@ -1740,6 +1941,7 @@
       localStorage.removeItem("pmb_upload_time");
       location.reload();
     }
+
     // SCHOOL TYPE
     function getSekolahTipe(s) {
       const u = String(s).toUpperCase();
@@ -1754,6 +1956,7 @@
       if (u.includes("PAKET")) return "Paket C";
       return "Lainnya";
     }
+
     // CITY
     // Pemetaan kabupaten/kota berdasarkan 4 digit pertama NIK
     // (Diverifikasi dari data aktual — kode BPS yang digunakan dalam NIK pendaftar)
@@ -1774,6 +1977,7 @@
       6171: "Kota Pontianak",
       6172: "Kota Singkawang",
     };
+
     function getKota(r) {
       // r bisa berupa objek record (ambil NIK) atau string NIK langsung
       const nik = typeof r === "object" ? String(r["N I K"] || "") : String(r);
@@ -1783,12 +1987,14 @@
     function isKalbar(r) {
       return getKota(r) !== "Luar Kalbar / Lainnya";
     }
+
     // RENDER ALL
     function renderAll() {
       renderInfo();
       renderAnalisis();
       renderRekap();
     }
+
     // INFO PAGE
     function renderInfo() {
       const d = DATA;
@@ -1807,6 +2013,7 @@
       const undurDiri = d.filter((r) => String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1).length;
       const nimAktif = Math.max(0, nim - undurDiri);
       const konversi = total > 0 ? nimAktif / total : 0;
+
       document.getElementById("kpiTotalDaftar").textContent = fmtN(total);
       document.getElementById("kpiDaftarSub").textContent = "Baru:" + fmtN(baru) + " | Pindahan:" + fmtN(pindahan);
       document.getElementById("kpiTotalTes").textContent = fmtN(tes);
@@ -1814,6 +2021,7 @@
       document.getElementById("kpiNimTerbentuk").textContent = fmtN(nimAktif);
       document.getElementById("kpiUndurDiri").textContent = fmtN(undurDiri);
       document.getElementById("kpiKonversi").textContent = fmtPct(konversi);
+
       // KPI per jalur
       const jalurMap = {};
       d.forEach((r) => {
@@ -1838,6 +2046,7 @@
         <div class="kpi-sub">${fmtPct(cnt / total)}</div>
       </div>`;
       });
+
       // Prodi pendaftar
       const prodiCount = {};
       d.forEach((r) => {
@@ -1869,6 +2078,7 @@
       });
       _tblData.prodiPendaftar = sorted.map(([p, n]) => ({ label: p, dot: prodiColor(p), pendaftar: n, nimAktif: prodiNimAktifMap[p] || 0 }));
       renderTblProdiPendaftar();
+
       // Prodi konversi (follow up)
       const prodiNIM = {};
       d.forEach((r) => {
@@ -1912,6 +2122,7 @@
       const tbody2 = null; // unused, kept for reference
       _tblData.prodiKonversi = konvData.map(x => ({ label: x.p, dot: prodiColor(x.p), daftar: x.daftar, nim: x.nim, pct: x.pct }));
       renderTblProdiKonversi();
+
       // Prodi: Daftar vs Tes (berdasarkan Pilihan 1 + Tanggal Test)
       const prodiTes = {};
       d.forEach((r) => {
@@ -1938,6 +2149,7 @@
       });
       _tblData.prodiDaftarTes = daftarTesData.map((x) => ({ label: x.p, dot: prodiColor(x.p), daftar: x.daftar, tes: x.tes, pct: x.pct }));
       renderTblProdiDaftarTes();
+
       // Undur diri per prodi
       const undurProdi = {};
       d.filter((r) => String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1).forEach((r) => {
@@ -1956,9 +2168,11 @@
       _tblData.undurDiri = undurSorted.map(([p, n]) => ({ label: p, dot: prodiColor(p), n }));
       renderTblUndurDiri();
     }
+
     // ANALISIS PAGE
     function renderAnalisis() {
       const d = DATA;
+
       // Distribusi Jalur
       const jalurC = counter(d, "Jalur");
       const jalurKeys = [...Object.keys(JALUR_COLORS).filter((k) => jalurC[k]), ...Object.keys(jalurC).filter((k) => !JALUR_COLORS[k])];
@@ -1970,6 +2184,7 @@
         },
         options: doughnutOpts(),
       });
+
       // Gelombang
       const gelC = counter(d, "Gelombang");
       mkChart("chartGelombang", {
@@ -1980,6 +2195,7 @@
         },
         options: doughnutOpts(),
       });
+
       // JK
       const jkC = counter(d, "JK");
       mkChart("chartJK", {
@@ -1990,6 +2206,7 @@
         },
         options: doughnutOpts(),
       });
+
       // Tren Bulan
       const bulanC = {};
       d.forEach((r) => {
@@ -2010,6 +2227,7 @@
         },
         options: defaultBarOpts("Jumlah Pendaftar", false),
       });
+
       // Pendaftaran per hari
       const hariC = [0, 0, 0, 0, 0, 0, 0];
       d.forEach((r) => {
@@ -2033,6 +2251,7 @@
         },
         options: defaultBarOpts("Jumlah", false),
       });
+
       // Prodi: Daftar vs NIM Aktif
       const prodiDaftar = {},
         prodiNimAktif = {};
@@ -2065,6 +2284,7 @@
         },
         options: defaultBarOpts("Jumlah", false, false, false),
       });
+
       // Konversi NIM Aktif per prodi
       const konvDit = allProdi
         .map((p) => {
@@ -2081,6 +2301,7 @@
         },
         options: defaultBarOpts("Konversi (%)", false, true),
       });
+
       // Jalur: konversi
       const jalurStats = {};
       d.forEach((r) => {
@@ -2114,6 +2335,7 @@
         },
         options: defaultBarOpts("Konversi (%)", false, true),
       });
+
       mkChart("chartJalurDaftarDiterima", {
         type: "bar",
         data: {
@@ -2125,6 +2347,7 @@
         },
         options: defaultBarOpts("Jumlah", false, false, false),
       });
+
       // Sekolah tipe
       const tipeC = {},
         tipeDiterima = {},
@@ -2149,6 +2372,7 @@
         },
         options: doughnutOpts(),
       });
+
       // Tabel Konversi per Tipe Sekolah
       // Urutkan tipeKeys berdasarkan konversi NIM Aktif terbesar ke terkecil
       tipeKeys.sort((a, b) => {
@@ -2160,6 +2384,7 @@
         const pctB = daftarB > 0 ? (nimAktifB / daftarB) * 100 : 0;
         return pctB - pctA;
       });
+
       // 2. Proses data yang sudah terurut
       _tblData.sekolahKonversi = tipeKeys.map(t => {
         const daftar = tipeC[t] || 0;
@@ -2168,6 +2393,7 @@
         return { tipe: t, daftar, nimAktif, pct: parseFloat(pct) };
       });
       renderTblSekolahKonversi();
+
       // Chart detail konversi — pakai NIM Aktif
       let konversiTipeDataList = tipeKeys.map((t) => {
         const nimAktif = Math.max(0, (tipeNimC[t] || 0) - (tipeUndurC[t] || 0));
@@ -2194,6 +2420,7 @@
         },
         options: defaultBarOpts("Konversi (%)", false, true),
       });
+
       // Top 10 sekolah
       const sekolahC = {};
       d.forEach((r) => {
@@ -2212,6 +2439,7 @@
         },
         options: defaultBarOpts("Jumlah", false),
       });
+
       // Hitung NIM Aktif per sekolah
       const sekolahNimC = {}, sekolahUndurC = {};
       d.forEach((r) => {
@@ -2222,6 +2450,7 @@
         if (hasNim) sekolahNimC[s] = (sekolahNimC[s] || 0) + 1;
         if (isUndur) sekolahUndurC[s] = (sekolahUndurC[s] || 0) + 1;
       });
+
       // Tabel Top 10 Sekolah
       _tblData.sekolahTop10 = top10Sekolah.map(([s, n]) => ({
         nama: s,
@@ -2229,6 +2458,7 @@
         nimAktif: Math.max(0, (sekolahNimC[s] || 0) - (sekolahUndurC[s] || 0))
       }));
       renderTblSekolahTop10();
+
       // Asal daerah
       const kotaC = {};
       d.forEach((r) => {
@@ -2256,6 +2486,7 @@
         },
         options: defaultBarOpts("Jumlah", false),
       });
+
       const inKalbar = d.filter((r) => isKalbar(r)).length;
       const luarKalbar = d.length - inKalbar;
       mkChart("chartKalbarLuar", {
@@ -2266,6 +2497,7 @@
         },
         options: doughnutOpts(),
       });
+
       // Penempatan pilihan
       let diP1 = 0,
         diP2 = 0,
@@ -2287,6 +2519,7 @@
         },
         options: doughnutOpts(),
       });
+
       // Distribusi Pilihan 1
       const p1C = counter(d, "Pilihan 1");
       const p1Keys = Object.keys(p1C).sort((a, b) => p1C[b] - p1C[a]);
@@ -2298,6 +2531,7 @@
         },
         options: defaultBarOpts("Jumlah", false),
       });
+
       // Top 10 pasangan prodi
       const pasangC = {};
       d.forEach((r) => {
@@ -2313,12 +2547,14 @@
         .slice(0, 10);
       _tblData.pasanganProdi = top10Pasang.map(([k, n]) => { const [p1, p2] = k.split('|||'); return { p1, p2, n }; });
       renderTblPasanganProdi();
+
       // Tabel Rincian per Jalur (di seksi Jalur Masuk)
       _tblData.rincianJalur = jKeys.map(j => {
         const s = jalurStats[j];
         return { label: jalurShort(j), daftar: s.daftar, nimAktif: s.nimAktif, pct: s.daftar > 0 ? fmtPct(s.nimAktif / s.daftar) : '0%' };
       });
       renderTblRincianJalur();
+
       // Pendaftar per bulan per jalur
       const bulanJalur = {};
       d.forEach((r) => {
@@ -2350,6 +2586,7 @@
         },
         options: defaultBarOpts("Jumlah", false, false, true),
       });
+
       // Kumulatif
       let cum = 0;
       const cumData = bKeys.map((bk) => {
@@ -2364,6 +2601,7 @@
         },
         options: defaultBarOpts("Jumlah Kumulatif", false),
       });
+
       // Gender per prodi (pendaftar & NIM Aktif)
       const gProdiDaftar = {},
         gProdiNimAktif = {};
@@ -2410,6 +2648,7 @@
         },
         options: defaultBarOpts("Jumlah", false, false, false),
       });
+
       // Top Sekolah: pendaftar & diterima
       const top10SD = Object.entries(sekolahC)
         .sort((a, b) => b[1] - a[1])
@@ -2445,6 +2684,7 @@
         },
         options: defaultBarOpts("Jumlah", false, false, false),
       });
+
       // Waktu tunggu tes
       const wt = [];
       const wtJalur = {};
@@ -2500,15 +2740,18 @@
         options: defaultBarOpts("Rata-rata Hari", false),
       });
     }
+
     // REKAP PAGE
     function renderRekap() {
       const d = DATA;
       const prodiList = Object.keys(PRODI_COLORS);
+
       // Count per prodi
       const stats = {};
       prodiList.forEach((p) => {
         stats[p] = { baru: 0, pindahan: 0, p1: 0, p2: 0, tes: 0, diterima: 0, nim: 0, undur: 0, nimAktif: 0 };
       });
+
       d.forEach((r) => {
         const p1 = String(r["Pilihan 1"] || "").trim();
         const p2 = String(r["Pilihan 2"] || "").trim();
@@ -2520,6 +2763,7 @@
         const isDiterima = String(r["Terima"]) === "1" || r["Terima"] === 1;
         const hasNim = String(r["Nomor Mahasiswa"] || "").trim() && String(r["Nomor Mahasiswa"] || "").trim() !== "nan";
         const isUndur = String(r["Undur Diri"]) === "1" || r["Undur Diri"] === 1;
+
         // assign to prodi
         if (p1 && stats[p1]) {
           if (isBaru) stats[p1].baru++;
@@ -2528,6 +2772,7 @@
           if (hasTes) stats[p1].tes++;
         }
         if (p2 && stats[p2]) stats[p2].p2++;
+
         // diterima goes to the received prodi
         const targetProdi = dp || p1;
         if (targetProdi && stats[targetProdi]) {
@@ -2537,6 +2782,7 @@
           stats[targetProdi].nimAktif = Math.max(0, stats[targetProdi].nim - stats[targetProdi].undur);
         }
       });
+
       rekapData = prodiList.map((p) => {
         const s = stats[p];
         const total = s.baru + s.pindahan;
@@ -2544,8 +2790,10 @@
         const konv = total > 0 ? (nimAktif / total) * 100 : 0;
         return [prodiShort(p), s.baru, s.pindahan, s.p1, s.p2, s.tes, s.diterima, s.nim, s.undur, nimAktif, +konv.toFixed(1)];
       });
+
       renderRekapTable();
     }
+
     function renderRekapTable() {
       const tbody = document.getElementById("rekapBody");
       const tfoot = document.getElementById("rekapFoot");
@@ -2571,6 +2819,7 @@
           </tr>`;
         })
         .join("");
+
       // Footer totals
       const totals = Array(11).fill(0);
       rekapData.forEach((r) => {
@@ -2585,6 +2834,7 @@
         <td class="text-left"><span class="badge badge-blue">${totalKonv.toFixed(1)}%</span></td>
       </tr>`;
     }
+
     function sortRekap(col) {
       if (rekapSortCol === col) rekapSortAsc = !rekapSortAsc;
       else {
@@ -2593,6 +2843,7 @@
       }
       renderRekapTable();
     }
+
     //CHART DEFAULT OPTIONS
     function defaultBarOpts(ylabel, horizontal, isPercent, stacked) {
       return {
@@ -2635,6 +2886,7 @@
         },
       };
     }
+
     // START
     init();
   </script>
