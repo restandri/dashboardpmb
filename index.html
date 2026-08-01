@@ -1878,8 +1878,6 @@
         localStorage.setItem("pmb_data", JSON.stringify(DATA));
         localStorage.setItem("pmb_upload_time", ts);
         renderAll();
-      } catch (err) {
-        alert("Gagal mengambil data dari Google Sheet: " + err.message);
       }
       showLoading(false);
     }
