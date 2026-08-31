@@ -1872,10 +1872,14 @@
           });
           return o;
         });
+        const now = new Date();
+        const ts = now.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
         localStorage.setItem("pmb_data", JSON.stringify(DATA));
         localStorage.setItem("pmb_upload_time", ts);
+        document.getElementById("lastUploadLabel").textContent = "Diperbarui: " + ts + " (Google Sheet)";
         renderAll();
       } catch (err) {
+        alert("Gagal mengambil data dari Google Sheet: " + err.message);
       }
       showLoading(false);
     }
